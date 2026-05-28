@@ -1,4 +1,6 @@
 <Solution>
   <Project Path="DotNet04ControlsApp/DotNet04ControlsApp.csproj" Id="2fe3d025-cb47-4efd-8838-a51dd667c212" />
+  <Project Path="DotNet05AsyncApp/DotNet05AsyncApp.csproj" Id="1e3eecea-6182-481c-8f13-2e8fc039ce9d" />
+  <Project Path="DotNet06DbBooksApp/DotNet06DbBooksApp.csproj" Id="e2a6a60d-7bae-4ce4-b6b3-31a2c5380361" />
   <Project Path="IoT02WinSolution2/IoT02WinSolution2.csproj" />
 </Solution>
