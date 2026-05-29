@@ -1,1 +1,2 @@
-﻿Console.WriteLine("Hello, World!");
+﻿// 최신방식
+Console.WriteLine("Hello, World!");

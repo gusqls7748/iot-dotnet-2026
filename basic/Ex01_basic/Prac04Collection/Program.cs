@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;  // 컬렉션 네임스페이스
 
 namespace Prac04Collection
 {
@@ -6,6 +7,7 @@ namespace Prac04Collection
     {
         static void Main(string[] args)
         {
+            // 01. 일반 배열
             // 배열 초기화
             int[] array1 = new int[5];
             array1[0] = 1;
@@ -20,7 +22,7 @@ namespace Prac04Collection
             for (int i = 0; i < array1.Length; i++)
             {
                 // for 문으로 배열의 인덱싱
-                Console.Write(array1[i] + " ");
+                Console.Write(array1[i] + ". ");
             }
             Console.WriteLine(); // 그냥 엔터
 
@@ -31,15 +33,15 @@ namespace Prac04Collection
             }
             Console.WriteLine();
 
-            // 02 .컬렉션
-            // 02-1. ArratList
-            ArrayList al1 = new ArrayList(); // 컬렉션은 사이즈 지정 안해도됨
+            // 02. 컬렉션
+            // 02-1. ArrayList
+            ArrayList al1 = new ArrayList(); // 컬렉션은 사이즈 지정 안해도 됨
 
             // Add() 메서드로 데이터 추가
             al1.Add(1);
             al1.Add("Hello");
             al1.Add(3.14);
-            al1.Add(true);
+            al1.Add(true);   // Python처럼 타입제약없이 입력가능
 
             foreach (var item in al1)
             {
@@ -55,7 +57,15 @@ namespace Prac04Collection
                 Console.WriteLine(item);
             }
 
-            // stack, Queue, Hasgtable, List...
+            // ArrayList로 써도 List<Object> 써도 동일
+            List<Object> al2 = new List<Object>();
+
+            al2.Add(1);
+            al2.Add("Hello");
+            al2.Add(3.14);
+            al2.Add(true);            
+
+            // Stack, Queue, Hashtable, List....
             Hashtable ht1 = new Hashtable();
             ht1["apple"] = "사과";
             ht1["banana"] = "바나나";
@@ -63,7 +73,7 @@ namespace Prac04Collection
 
             Console.WriteLine(ht1["mango"]);
 
-            Dictionary<string, string> ht2 = new Dictionary<string, string>();
+            Dictionary<String, String> ht2 = new Dictionary<String, String>();
             ht2["apple"] = "사과";
 
             Console.WriteLine(ht2["apple"]);

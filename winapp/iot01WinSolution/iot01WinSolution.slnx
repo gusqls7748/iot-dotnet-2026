@@ -1,5 +1,4 @@
 <Solution>
-  <Project Path="DontNet03GuessNum/DontNet03GuessNum.csproj" Id="20a0f218-1f98-4e89-ba7c-b85eaa67ab23" />
-  <Project Path="Dotnet01App/Dotnet01App.csproj" Id="3e362ff2-c497-4449-9c76-ae9522113f2a" />
-  <Project Path="Form1/Form1.csproj" />
+  <Project Path="DotNet02Test/DotNet02Test.csproj" />
+  <Project Path="DotNet03GuessNum/DotNet03GuessNum.csproj" Id="5daf7fc5-4fb9-47c4-9095-b168c6de794e" />
 </Solution>
