@@ -39,5 +39,17 @@ namespace DotNet06DbBooksApp
             return dt;
         }
 
+        // INSERT, UPDATE, DELETE 쿼리실행
+        internal int Execute(string Sql)
+        {
+            using (MySqlConnection conn = new MySqlConnection(connStr))
+            {
+                conn.Open();
+                using (MySqlCommand cmd = new MySqlCommand(Sql, conn))
+                {
+                    return cmd.ExecuteNonQuery(); // Insert,
+                }
+            }
+        }
     }
 }

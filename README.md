@@ -302,9 +302,92 @@ IoT 개발자 닷넷 리포지토리(기본, 중급, 응용, 프로젝트)
 
 ![alt text](image-11.png)
 
+#### DB연동 앱 - 데이터 추가,수정,삭제
+
+#### C# 개발 Tip
+- C# 문법 중 새 객체 생성 할 때 초기화 방법
+
+    ```cs
+    // 전통적인 속성 할당 방식 객체 생성방식
+    // book_idx 
+    DataGridViewTextBoxColumn colBookIdx = new DataGridViewTextBoxColumn();
+    colBookIdx.Name = "book_idx";
+    colBookIdx.HeaderText = "순번"; // 화면표시 컬럼명
+    colBookIdx.DataPropertyName = "book_idx";
+    colBookIdx.ReadOnly = true;  // PK는 수정하면 안됨!! 
+    ```
+
+    ```cs
+    // C# 3.0 이후 객체 이니셜라이저 방식
+    DataGridViewTextBoxColumn colBookIdx = new DataGridViewTextBoxColumn
+    {
+        Name = "book_idx",
+        HeaderText = "순번", // 화면표시 컬럼명
+        DataPropertyName = "book_idx",
+        ReadOnly = true  // PK는 수정하면 안됨!!
+    };
+
+    ```
+
+    ### 웹앱
+
+    ### 서버 클라이언트
+    ![alt text](image-12.png)
+    ![alt text](image-13.png)
+
+    ### 웹 서비스
+
+    - 통칭해서 웹 서버와 API 서비스 모두 웹 서비스라고 칭함
+    - API 서버 - 데이터만 전달하는 형태의 웹 서비스
+        - 공공데이터포털, 네이버API, 구글API
+
+    ### 일반 웹서버
+    - HTML, CSS, JS 사용 웹화면 개발 + 백엔드
+    - ASP.NET, Spring Boot 등을 사용 기본적인 웹서버 개발
+    - 네이버, 구글, 구글 홈페이지...
+
+    ### ASP.NET
+    1. 새 프로젝트 - ASP.NET Core 웹앱(MVC) 선택
+    2. 프로젝트명, 위치, 솔루션명 입력 다음
+    3. 프레임워크 선택, 인증 유형 없음, HTTPS 체크, 최상위문 사용안함 체크
+    4. 나머지는 기존 상태 그대로 만들기
+    
+    ![alt text](image-14.png)
+
+    ### ASP.NET API서버
+    1. 새프로젝트 - ASP.NET Core 웹 API
+    2. 위와 동일
+    3. OpenAPI 컨트롤러 사용 체크 나머지 동일
+    4. 서버 실행
+        - Get으로 데이터 조회
+        - 서버 상태 확인
+
+    ![alt text](image-15.png)
+
+5. `PostMan`으로 Http메서드 테스트
+
+### Http 메서드
+- GET -Select와 동일, 조회
+- Post - Insert와 동일, 등록위주, 수정, 삭제도 가능
+- PUT - UPDate와 동일, 수정
+- DELETE - Delete와 동일 삭제
+
+### 유니티
+
+- 게임엔진+ : Unity, Ureal(C++), Blender(python), 
+
+    
+
+
+
+
 ### OpenAPI연동 앱
 - 미세먼지 모니터링앱
 - 국가교통정보 CCTV뷰 앱
 - IoT 모니터링앱
+
+### 키오스크 앱
+- 결제이전까지 동작하는 버전
+- WPF를 사용해서 구현
 
 ### 라이브러리 만들기
