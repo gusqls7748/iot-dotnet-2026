@@ -1,0 +1,67 @@
+using UnityEngine;
+using UnityEngine.InputSystem; // 상단에 네임스페이스를 추가합니다.
+
+public class MoveCube : MonoBehaviour
+{
+    //float speed = 5f; // 큐브의 위치값
+    private Vector3 position;
+    private float speed = 20f;
+    private float rotateSpeed = 100f;
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // 화면이 시작되고 최초 한번만 실행되는 초기화 메서드
+    void Start()
+    {
+        //position = new Vector3(0, 0, 0);
+    }
+
+    // Update is called once per frame
+    // 각 프레임마다 호출 , 30fps => 1초 동안 30번 호출
+    void Update()
+    {
+        //앞뒤 이동
+        float move = Input.GetAxis("Vertical");
+        move = move * speed * Time.deltaTime;
+
+        transform.Translate(Vector3.forward * move);
+
+        // 좌우회전
+        float rotate = Input.GetAxis("Horizontal");
+        rotate = rotate * rotateSpeed * Time.deltaTime;
+
+        transform.Rotate(Vector3.up * rotate);
+
+        //position = Vector3.zero;    // 현재위치 초기화
+
+        //if (Input.GetKey(KeyCode.UpArrow))
+        //{
+        //    position.z = 0.1f;
+        //    transform.Translate(position);
+        //}
+
+        //if (Input.GetKey(KeyCode.DownArrow))
+        //{
+        //    position.z = -0.1f;
+        //    transform.Translate(position);
+
+        //}
+
+        //if (Input.GetKey(KeyCode.LeftArrow))
+        //{
+        //    position.y = -0.1f;
+        //    transform.Rotate(position);
+        //}
+
+        //if (Input.GetKey(KeyCode.RightArrow))
+        //{
+        //    position.y = 0.1f;
+        //    transform.Rotate(position);
+        //}
+
+    }
+
+    public void OnMove(InputValue value)
+    {
+        Debug.Log(value.Get<Vector3>());
+    }
+}
