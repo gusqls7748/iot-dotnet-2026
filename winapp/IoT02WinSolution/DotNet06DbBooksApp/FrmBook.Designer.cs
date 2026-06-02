@@ -31,6 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmBook));
             DgvBooks = new DataGridView();
             BtnLoad = new MaterialSkin.Controls.MaterialButton();
+            BtnNew = new MaterialSkin.Controls.MaterialButton();
+            BtnEdit = new MaterialSkin.Controls.MaterialButton();
+            BtnDelete = new MaterialSkin.Controls.MaterialButton();
             ((System.ComponentModel.ISupportInitialize)DgvBooks).BeginInit();
             SuspendLayout();
             // 
@@ -52,7 +55,7 @@
             BtnLoad.Depth = 0;
             BtnLoad.HighEmphasis = true;
             BtnLoad.Icon = null;
-            BtnLoad.Location = new Point(841, 477);
+            BtnLoad.Location = new Point(616, 477);
             BtnLoad.Margin = new Padding(4, 6, 4, 6);
             BtnLoad.MouseState = MaterialSkin.MouseState.HOVER;
             BtnLoad.Name = "BtnLoad";
@@ -65,11 +68,77 @@
             BtnLoad.UseVisualStyleBackColor = true;
             BtnLoad.Click += BtnLoad_Click;
             // 
+            // BtnNew
+            // 
+            BtnNew.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            BtnNew.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            BtnNew.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            BtnNew.Depth = 0;
+            BtnNew.HighEmphasis = true;
+            BtnNew.Icon = null;
+            BtnNew.Location = new Point(688, 477);
+            BtnNew.Margin = new Padding(4, 6, 4, 6);
+            BtnNew.MouseState = MaterialSkin.MouseState.HOVER;
+            BtnNew.Name = "BtnNew";
+            BtnNew.NoAccentTextColor = Color.Empty;
+            BtnNew.Size = new Size(64, 36);
+            BtnNew.TabIndex = 2;
+            BtnNew.Text = "NEW";
+            BtnNew.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            BtnNew.UseAccentColor = false;
+            BtnNew.UseVisualStyleBackColor = true;
+            BtnNew.Click += BtnNew_Click;
+            // 
+            // BtnEdit
+            // 
+            BtnEdit.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            BtnEdit.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            BtnEdit.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            BtnEdit.Depth = 0;
+            BtnEdit.HighEmphasis = true;
+            BtnEdit.Icon = null;
+            BtnEdit.Location = new Point(760, 477);
+            BtnEdit.Margin = new Padding(4, 6, 4, 6);
+            BtnEdit.MouseState = MaterialSkin.MouseState.HOVER;
+            BtnEdit.Name = "BtnEdit";
+            BtnEdit.NoAccentTextColor = Color.Empty;
+            BtnEdit.Size = new Size(64, 36);
+            BtnEdit.TabIndex = 3;
+            BtnEdit.Text = "EDIT";
+            BtnEdit.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            BtnEdit.UseAccentColor = false;
+            BtnEdit.UseVisualStyleBackColor = true;
+            BtnEdit.Click += BtnEdit_Click;
+            // 
+            // BtnDelete
+            // 
+            BtnDelete.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            BtnDelete.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            BtnDelete.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            BtnDelete.Depth = 0;
+            BtnDelete.HighEmphasis = true;
+            BtnDelete.Icon = null;
+            BtnDelete.Location = new Point(832, 477);
+            BtnDelete.Margin = new Padding(4, 6, 4, 6);
+            BtnDelete.MouseState = MaterialSkin.MouseState.HOVER;
+            BtnDelete.Name = "BtnDelete";
+            BtnDelete.NoAccentTextColor = Color.Empty;
+            BtnDelete.Size = new Size(73, 36);
+            BtnDelete.TabIndex = 4;
+            BtnDelete.Text = "DELETE";
+            BtnDelete.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            BtnDelete.UseAccentColor = false;
+            BtnDelete.UseVisualStyleBackColor = true;
+            BtnDelete.Click += BtnDelete_Click;
+            // 
             // FrmBook
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(912, 522);
+            Controls.Add(BtnDelete);
+            Controls.Add(BtnEdit);
+            Controls.Add(BtnNew);
             Controls.Add(BtnLoad);
             Controls.Add(DgvBooks);
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -90,5 +159,8 @@
 
         private DataGridView DgvBooks;
         private MaterialSkin.Controls.MaterialButton BtnLoad;
+        private MaterialSkin.Controls.MaterialButton BtnNew;
+        private MaterialSkin.Controls.MaterialButton BtnEdit;
+        private MaterialSkin.Controls.MaterialButton BtnDelete;
     }
 }
