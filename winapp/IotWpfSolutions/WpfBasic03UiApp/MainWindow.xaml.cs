@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MahApps.Metro.Controls;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -8,16 +7,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WpfBasic02Navi
+namespace WpfBasic03UiApp
 {
     /// <summary>
-    /// Window1.xaml에 대한 상호 작용 논리
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class MainWindow : MetroWindow
     {
-        public Window1()
+        public MainWindow()
         {
             InitializeComponent();
         }

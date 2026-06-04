@@ -14,24 +14,23 @@ using System.Windows.Shapes;
 namespace WpfBasic02Navi
 {
     /// <summary>
-    /// Sub01Page.xaml에 대한 상호 작용 논리
+    /// MenuPage.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class Sub01Page : Page
+    public partial class MenuPage : Page
     {
-        public Sub01Page()
+        public MenuPage()
         {
             InitializeComponent();
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private void BtnMenu01_Click(object sender, RoutedEventArgs e)
         {
-            MediaPlayer.Source = new Uri(@".\earth.avi", UriKind.RelativeOrAbsolute);
-            MediaPlayer.Play();
+            NavigationService.Navigate(new Uri("/Sub01Page.xaml", UriKind.RelativeOrAbsolute));
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void BtnMenu02_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("버튼클릭!!");
+            NavigationService.Navigate(new Uri("/Sub02Page.xaml", UriKind.RelativeOrAbsolute));
         }
     }
 }
