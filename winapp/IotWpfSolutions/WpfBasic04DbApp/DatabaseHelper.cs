@@ -53,5 +53,21 @@ namespace WpfBasic04DbApp
                 }
             }
         }
+
+        // Parameter 사용 Exeute, 오버로딩
+        public int Execute(string sql, params MySqlParameter[] parameters)
+        {
+            using (MySqlConnection conn = new MySqlConnection(connStr))
+            {
+                conn.Open();
+
+                using (MySqlCommand cmd = new MySqlCommand(sql, conn))
+                {
+                    if (parameters != null)
+                        cmd.Parameters.AddRange(parameters);
+                    return cmd.ExecuteNonQuery();  // INSERT, UPDATE, DELETE 쿼리를 실행
+                }
+            }
+        }
     }
 }

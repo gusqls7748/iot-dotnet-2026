@@ -27,7 +27,7 @@
         </Grid.RowDefinitions>
 
         <DataGrid x:Name="GrdBooks" Grid.Row="0" Grid.Column="0" Margin="5"
-                  AutoGenerateColumns="False" IsReadOnly="True">
+                  AutoGenerateColumns="False" IsReadOnly="True" MouseDoubleClick="GrdBooks_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="순번" Binding="{Binding book_idx}">
                     <DataGridTextColumn.ElementStyle>
@@ -69,23 +69,15 @@
         </DataGrid>
 
         <GroupBox Grid.Row="0" Grid.Column="1" Margin="5" Header="책 상세">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+            <StackPanel>
+                
 
                 <mah:NumericUpDown 
                     x:Name="NudBookIdx" Grid.Row="0" Minimum="0" IsReadOnly="True" Margin="5"
                     mah:TextBoxHelper.AutoWatermark="True"
                     mah:TextBoxHelper.Watermark="순번"
-                    mah:TextBoxHelper.WatermarkAlignment="Left" />
+                    mah:TextBoxHelper.WatermarkAlignment="Left" 
+                    mah:TextBoxHelper.UseFloatingWatermark="True"/>
                 <TextBox 
                     x:Name="TxtAuthor" Grid.Row="1" Margin="5"
                     mah:TextBoxHelper.AutoWatermark="True"
@@ -93,40 +85,55 @@
                     mah:TextBoxHelper.ClearTextButton="True" />
                 <ComboBox 
                     x:Name="CboDivCode" Grid.Row="2" Margin="5"
+                    SelectedValuePath="div_code"
+                    DisplayMemberPath="div_name"
                     mah:TextBoxHelper.AutoWatermark="True"
                     mah:TextBoxHelper.Watermark="책장르"
-                    mah:TextBoxHelper.ClearTextButton="True" />
+                    mah:TextBoxHelper.ClearTextButton="True" 
+                    mah:TextBoxHelper.UseFloatingWatermark="True"/>
                 <TextBox 
                     x:Name="TxtBookName" Grid.Row="3" Margin="5"
                     mah:TextBoxHelper.AutoWatermark="True"
                     mah:TextBoxHelper.Watermark="책제목"
-                    mah:TextBoxHelper.ClearTextButton="True"/>
+                    mah:TextBoxHelper.ClearTextButton="True"
+                    mah:TextBoxHelper.UseFloatingWatermark="True"/>
                 <DatePicker 
                     x:Name="DtpReleaseDt" Grid.Row="4" Margin="5"
                     mah:TextBoxHelper.AutoWatermark="True"
                     mah:TextBoxHelper.Watermark="출판일"
-                    mah:TextBoxHelper.ClearTextButton="True"/>
+                    mah:TextBoxHelper.ClearTextButton="True"
+                    mah:TextBoxHelper.UseFloatingWatermark="True"/>
                 <TextBox 
                     x:Name="TxtIsbn" Grid.Row="5" Margin="5" 
                     mah:TextBoxHelper.AutoWatermark="True"
                     mah:TextBoxHelper.Watermark="ISBN"
-                    mah:TextBoxHelper.ClearTextButton="True"/>
+                    mah:TextBoxHelper.ClearTextButton="True"
+                    mah:TextBoxHelper.UseFloatingWatermark="True"/>
                 <TextBox 
                     x:Name="TxtPrice" Grid.Row="6" Margin="5"
                     mah:TextBoxHelper.AutoWatermark="True"
                     mah:TextBoxHelper.Watermark="책가격"
-                    mah:TextBoxHelper.ClearTextButton="True"/>
+                    mah:TextBoxHelper.ClearTextButton="True"
+                    mah:TextBoxHelper.UseFloatingWatermark="True"/>
 
                 <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Center">
                     <Button x:Name="BtnNew" Width="100" Content="신규" Margin="5" 
-                            Style="{StaticResource MahApps.Styles.Button.Dialogs.Accent}"/>
+                            Style="{StaticResource MahApps.Styles.Button.Dialogs.Accent}" Click="BtnNew_Click"/>
                     <Button x:Name="BtnSave" Width="100" Content="저장" Margin="5"
-                            Style="{StaticResource MahApps.Styles.Button.Dialogs.AccentHighlight}"/>
+                            Style="{StaticResource MahApps.Styles.Button.Dialogs.AccentHighlight}" Click="BtnSave_Click"/>
                     <Button x:Name="BtnDelete" Width="100" Content="삭제" Margin="5"
-                            Style="{StaticResource MahApps.Styles.Button.Dialogs.Accent}"/>
+                            Style="{StaticResource MahApps.Styles.Button.Dialogs.Accent}" Click="BtnDelete_Click"/>
                 </StackPanel>
-            </Grid>
+            </StackPanel>
         </GroupBox>
+        <!-- mah:MetroWindow 안에서 아래와 같이 정의하면 깔끔하게 정렬됩니다 -->
+        <StatusBar Grid.Row="4" Background="{DynamicResource MahApps.Brushes.Accent}">
+            <StatusBarItem>
+                <TextBlock x:Name="SbiResMsg" 
+                   Text="준비" 
+                   Foreground="{DynamicResource MahApps.Brushes.IdealForeground}"/>
+            </StatusBarItem>
+        </StatusBar>
 
         <StatusBar x:Name="StbWindow" Grid.Row="1" Grid.ColumnSpan="2" Background="{DynamicResource MahApps.Brushes.Accent}"/>
     </Grid>
