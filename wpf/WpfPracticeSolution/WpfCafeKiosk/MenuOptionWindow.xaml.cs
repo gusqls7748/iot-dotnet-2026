@@ -1,78 +1,44 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace WpfCafeKiosk
 {
     /// <summary>
-    /// MenuOptionWindow.xaml에 선언된 버튼 이벤트들과 완벽하게 일치하는 비하인드 클래스입니다.
+    /// MenuOptionWindow.xaml에 대한 상호 작용 논리
     /// </summary>
     public partial class MenuOptionWindow : Window
     {
-        // 장바구니 모델(OrderItem)의 Count와 통일하여 수량 관리
-        public int Count { get; private set; } = 1;
+        private string menuName;
+        private int price;
+        private string imagePath;
+        private int qty = 1;  // Quentity
 
-        private int unitPrice = 0;
-
-        // 생성자: 부모 창(MainWindow)에서 받아온 데이터를 매핑합니다.
         public MenuOptionWindow(string menuName, int price, string imagePath)
         {
-            InitializeComponent();
+            InitializeComponent(); 
 
-            unitPrice = price;
+            this.menuName = menuName;
+            this.price = price;
+            this.imagePath = imagePath;
+
             TxtMenuName.Text = menuName;
             TxtPrice.Text = $"{price:N0}원";
 
-            // 이미지 경로 처리 (예외 발생 시 튕김 방지)
-            try
-            {
-                if (!string.IsNullOrEmpty(imagePath))
-                {
-                    ImgMenu.Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
-                }
-            }
-            catch
-            {
-                // 이미지 파일이 없거나 경로가 꼬여도 에러 없이 창이 켜지도록 유연하게 처리
-            }
+            ImgMenu.Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
         }
 
-        // XAML의 Click="BtnMinus_Click"과 완벽히 매핑되는 메서드
-        private void BtnMinus_Click(object sender, RoutedEventArgs e)
-        {
-            if (Count > 1)
-            {
-                Count--;
-                UpdateQuantityUi();
-            }
-        }
-
-        // XAML의 Click="BtnPlus_Click"과 완벽히 매핑되는 메서드
-        private void BtnPlus_Click(object sender, RoutedEventArgs e)
-        {
-            Count++;
-            UpdateQuantityUi();
-        }
-
-        // 수량 텍스트와 변경된 실시간 합산 가격 반영 헬퍼 함수
-        private void UpdateQuantityUi()
-        {
-            TxtQuantity.Text = Count.ToString();
-            int totalOptionPrice = unitPrice * Count;
-            TxtPrice.Text = $"{totalOptionPrice:N0}원";
-        }
-
-        // XAML의 Click="BtnCancel_Click"과 완벽히 매핑되는 메서드
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;
-            Close();
-        }
-
-        // XAML의 Click="BtnConfirm_Click"과 완벽히 매핑되는 메서드
-        private void BtnConfirm_Click(object sender, RoutedEventArgs e)
-        {
-            DialogResult = true;
             Close();
         }
     }

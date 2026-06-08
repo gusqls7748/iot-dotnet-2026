@@ -2,19 +2,10 @@
 using MahApps.Metro.Controls.Dialogs;
 using MySqlConnector;
 using System.Data;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using WpfBasic04DbApp;
 
-namespace WpfBasic04DbApp // 👈 💡 기존 WpfBasic03UiApp에서 04DbApp으로 변경!
+namespace WpfBasic04DbApp
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -39,7 +30,7 @@ namespace WpfBasic04DbApp // 👈 💡 기존 WpfBasic03UiApp에서 04DbApp으�
 
         private void LoadComboBoxData()
         {
-            string query = "SELECT div_code, div_name FROM division";
+            string query = "SELECT div_code, div_name FROM division ";
 
             DataTable dt = databaseHelper.Select(query);
             CboDivCode.ItemsSource = dt.DefaultView;
@@ -55,9 +46,6 @@ namespace WpfBasic04DbApp // 👈 💡 기존 WpfBasic03UiApp에서 04DbApp으�
             GrdBooks.ItemsSource = dt.DefaultView;
         }
 
-
-        // 기존에 메서드 위쪽에 잘못 들어가 있던 } 이나 글자들은 완전히 지워주세요.
-
         /// <summary>
         /// 윈폼 형태 이벤트 처리
         /// </summary>
@@ -67,120 +55,125 @@ namespace WpfBasic04DbApp // 👈 💡 기존 WpfBasic03UiApp에서 04DbApp으�
         {
             try
             {
-                // SelectedItems에 선택된 항목이 있는지 검사
                 if (GrdBooks.SelectedItems.Count == 1)
                 {
-                    // [수정] 0번째 인덱스의 개별 요소를 DataRowView로 정확히 캐스팅합니다.
+                    // 데이터그리드에 한 아이템을 선택했을때
                     var item = GrdBooks.SelectedItems[0] as DataRowView;
 
-                    if (item != null)
-                    {
-                        NudBookIdx.Value = Convert.ToInt32(item.Row["book_idx"]);
-                        TxtAuthor.Text = item.Row["author"].ToString();
-                        TxtBookName.Text = Convert.ToString(item.Row["book_name"]);
-                        DtpReleaseDt.Text = Convert.ToString(item.Row["release_dt"]);
-                        TxtIsbn.Text = Convert.ToString(item.Row["isbn"]);
-                        TxtPrice.Text = Convert.ToString(item.Row["price"]);
+                    //MessageBox.Show(item.Row["author"].ToString());
+                    NudBookIdx.Value = Convert.ToDouble(item.Row["book_idx"]);
+                    TxtAuthor.Text = item.Row["author"].ToString();
+                    TxtBookName.Text = Convert.ToString(item.Row["book_name"]);
+                    DtpReleaseDt.Text = Convert.ToString(item.Row["release_dt"]);
+                    TxtIsbn.Text = Convert.ToString(item.Row["isbn"]);
+                    TxtPrice.Text = Convert.ToString(item.Row["price"]);
 
-                        // 데이터 타입에 따라 ToString() 또는 ToInt32()를 선택하세요.
-                        CboDivCode.SelectedValue = Convert.ToString(item.Row["div_code"]);
+                    // 콤보박스 선택
+                    CboDivCode.SelectedValue = Convert.ToString(item.Row["div_code"]);
 
-                        SbiResMsg.Text = $"{Convert.ToInt32(item.Row["book_idx"])}번 데이터로드 완료";
-                    }
-                    else
-                    {
-                        SbiResMsg.Text = "선택된 데이터 형식이 DataRowView가 아닙니다.";
-                    }
+                    SbiResMsg.Content = $"{Convert.ToInt32(item.Row["book_idx"])}번 데이터로드 완료";
                 }
+
+                // 비동기로 처리하면 Fadeout이 제대로 진행
+                //await this.ShowMessageAsync("책 상세", "데이터 상세 완료");
+
             }
             catch (Exception ex)
             {
-                SbiResMsg.Text = $"데이터로드 오류 : {ex.Message}";
-            }
+                SbiResMsg.Content = $"데이터로드 오류 : {ex.Message}";
+            }            
         }
 
         private async void BtnSave_Click(object sender, RoutedEventArgs e)
         {
+            // 신규 저장과 수정을 구분
+            // 신규 : book_idx 데이터 없음
             try
             {
                 string author = TxtAuthor.Text.Trim();
-                string bookname = TxtBookName.Text.Trim();
+                string bookName = TxtBookName.Text.Trim();
                 string isbn = TxtIsbn.Text.Trim();
                 string divCode = Convert.ToString(CboDivCode.SelectedValue);
 
-                // 필수 입력값 체크
-                if (string.IsNullOrEmpty(author) || string.IsNullOrEmpty(bookname) || string.IsNullOrEmpty(divCode))
+                // Validation Check
+                if (string.IsNullOrEmpty(author) || string.IsNullOrEmpty(bookName) || string.IsNullOrEmpty(divCode))
                 {
                     await this.ShowMessageAsync("입력오류", "필수값을 입력하세요");
                     return;
                 }
 
-                // 출판일 유효성 체크
-                DateTime releaseDt;
-                if (!DateTime.TryParse(DtpReleaseDt.Text, out releaseDt))
+                // DateTime releaseDt = DateTime.Parse(DtpReleaseDt.Text);  // 예외발생
+                // TryParse(가져올값변수, out 담을변수) 메서드. 예외발생하지 않음
+                if (!DateTime.TryParse(DtpReleaseDt.Text, out DateTime releaseDt))
                 {
-                    await this.ShowMessageAsync("입력오류", "올바른 출판일을 선택하거나 입력하세요.");
+                    await this.ShowMessageAsync("입력오류", "날짜형식이 올바르지 않습니다");
                     return;
                 }
 
-                // 가격 유효성 체크
+                // 가격도 TryParse
                 if (!int.TryParse(TxtPrice.Text, out int price))
                 {
                     await this.ShowMessageAsync("입력오류", "가격은 숫자로 입력하세요");
                     return;
                 }
 
-                int bookIdx = Convert.ToInt32(NudBookIdx.Value);
-                string query = string.Empty;
+                int bookIdx = Convert.ToInt32(NudBookIdx.Value);  // double to int
 
-                if (bookIdx == 0) // INSERT
+                string query;
+
+                if (bookIdx == 0)  // INSERT
                 {
-                    // [수정] 쿼리 속 @ 이름들을 아래 MySqlParameter의 첫 번째 글자와 완벽히 일치시킵니다.
-                    query = "INSERT INTO books " +
-                            " (author, div_code, book_name, release_dt, isbn, price) " +
-                            " VALUES " +
-                            " (@author, @div_code, @book_name, @release_dt, @isbn, @price) ";
+                    // 신규 저장 기초방법
+                    //query =
+                    //    " INSERT INTO books " +
+                    //    " (author, div_code, book_name, release_dt, isbn, price) " +
+                    //    " VALUES " +
+                    //   $" ('{author}', '{divCode}', '{bookName}', '{releaseDt:yyyy-MM-dd}', '{isbn}', {price}) ";
 
-                    // [오타 수정] 쿼리에 적은 이름(@author 등)과 파라미터 이름이 완벽히 똑같아야 합니다.
+                    //databaseHelper.Execute(query);
+
+                    // SqlParameter : SQLInjection 해킹방지
+                    query =
+                        " INSERT INTO books " +
+                        " (author, div_code, book_name, release_dt, isbn, price) " +
+                        " VALUES " +
+                       " (@author, @div_code, @book_name, @release_dt, @isbn, @price) ";
+
+                    // query에 지정된 @parameter 순서와 일치
                     databaseHelper.Execute(query,
                             new MySqlParameter("@author", author),
-                            new MySqlParameter("@div_code", divCode),   // @divCode -> @div_code 수정
-                            new MySqlParameter("@book_name", bookname), // @bookname -> @book_name 수정
-                            new MySqlParameter("@release_dt", releaseDt.ToString("yyyy-MM-dd")), // 날짜 스트링 변환 안전화
+                            new MySqlParameter("@div_code", divCode),
+                            new MySqlParameter("@book_name", bookName),
+                            new MySqlParameter("@release_dt", releaseDt.ToString("yyyy-MM-dd")),
                             new MySqlParameter("@isbn", isbn),
                             new MySqlParameter("@price", price)
-                         );
+                        );
 
-                    SbiResMsg.Text = "새로운 도서정보가 등록되었습니다.";
-                }
-                else // UPDATE
-                {
-                    // [중요 수정] SQL 문법 오류 해결: 각 컬럼 사이에 콤보(,)를 추가하고 날짜는 yyyy-MM-dd 포맷으로 지정
-                    query = "UPDATE books " +
-                            $"SET author = '{author}', " +
-                            $"    div_code = '{divCode}', " +
-                            $"    book_name = '{bookname}', " +
-                            $"    release_dt = '{releaseDt.ToString("yyyy-MM-dd")}', " +
-                            $"    isbn = '{isbn}', " +
-                            $"    price = {price} " +
-                            $"WHERE book_idx = {bookIdx}";
+                    SbiResMsg.Content = "신규도서가 저장되었습니다";
+
+                } else { // UPDATE
+                    query = $"UPDATE books " +
+                            $"   SET author = '{author}'" +
+                            $"     , div_code = '{divCode}' "+
+                            $"     , book_name = '{bookName}'"+
+                            $"     , release_dt = '{releaseDt:yyyy-MM-dd}'"+
+                            $"     , isbn = '{isbn}'"+
+                            $"     , price = {price}"+
+                            $" WHERE book_idx = {bookIdx}";
 
                     databaseHelper.Execute(query);
 
-                    // [수정] Content를 Text 속성으로 교체하여 에러 해결
-                    SbiResMsg.Text = $"{bookIdx}번 도서정보가 수정되었습니다.";
+                    SbiResMsg.Content = $"{bookIdx}번 도서정보가 수정되었습니다.";
                 }
 
-                ClearInputs(); // 책상세 입력컨트롤에 들어가는 데이터를 전부 삭제(초기화)
-                LoadData(); // 데이터 재조회
-
-                // [권장 추가] 저장 후 데이터그리드를 다시 조회하는 메서드를 호출하세요 (메서드명이 다르면 수정 필요)
-                // LoadGridData(); 
+                ClearInputs(); // 책상세 입력컨트롤에 들어가있는 데이터를 전부 삭제(초기화)
+                LoadData();  // 데이터 재조회!
             }
             catch (Exception ex)
             {
-                SbiResMsg.Text = $"데이터저장 오류: {ex.Message}";
+                SbiResMsg.Content = $"데이터저장 오류 : {ex.Message}";
             }
+            
         }
 
         private void ClearInputs()
@@ -190,25 +183,15 @@ namespace WpfBasic04DbApp // 👈 💡 기존 WpfBasic03UiApp에서 04DbApp으�
             TxtBookName.Text = string.Empty;
             DtpReleaseDt.Text = string.Empty;
             TxtIsbn.Text = string.Empty;
-            TxtPrice.Text = string.Empty;
-            TxtPrice.Text = ""; // ==
+            TxtPrice.Text = ""; // == string.Empty
             CboDivCode.SelectedIndex = -1; // 콤보박스 선택값 없애기
         }
 
         private void BtnNew_Click(object sender, RoutedEventArgs e)
         {
-            // 1. 모든 입력 텍스트 박스 초기화 (작성해 두신 메서드)
             ClearInputs();
-
-            // [필수 추가] 2. 숨겨진 인덱스 번호를 0으로 초기화
-            // 이전 단계에서 작성한 Save 로직의 "if (bookIdx == 0) // INSERT" 조건과 연동됩니다.
-            NudBookIdx.Value = 0;
-
-            // [권장 추가] 3. 신규 입력 시 사용자가 편하도록 첫 번째 입력 칸으로 포커스 이동
+            SbiResMsg.Content = $"신규 책정보를 입력하세요";
             TxtAuthor.Focus();
-
-            // 4. 상태바 메시지 출력 (ContentEnd 대신 Text 속성 사용)
-            SbiResMsg.Text = "신규 도서 입력을 시작합니다.";
         }
 
         private async void BtnDelete_Click(object sender, RoutedEventArgs e)
@@ -219,43 +202,42 @@ namespace WpfBasic04DbApp // 👈 💡 기존 WpfBasic03UiApp에서 04DbApp으�
 
                 if (bookIdx <= 0)
                 {
-                    // [수정] Content를 Text 속성으로 변경
-                    SbiResMsg.Text = "먼저 삭제할 도서를 선택하세요";
+                    SbiResMsg.Content = "먼저 삭제할 도서를 선택하세요";
                     return;
                 }
 
-                // 다이얼 로그로 삭제여부를 확인
-                MessageDialogResult res = await this.ShowMessageAsync("삭제 확인", $"{bookIdx}번 도서를 삭제하시겠습니까?",
-                                                                        MessageDialogStyle.AffirmativeAndNegative);
+                // 다이얼로그로 삭제여부를 확인
+                MessageDialogResult res = await this.ShowMessageAsync("삭제 확인", $"{bookIdx}번 도서를 삭제하시겠습니까?", 
+                                                                      MessageDialogStyle.AffirmativeAndNegative);
                 if (res != MessageDialogResult.Affirmative)
                 {
-                    return; // 확인이 아니면 진행 종료
+                    return;  // 확인이 아니면 진행종료
                 }
 
-                // 파라미터화된 쿼리를 사용하여 안전하게 삭제 진행
+                // 가장 초보적인 방법
+                //string query = $"DELETE FROM books WHERE book_idx = {bookIdx}";
+                // SqlParamater 사용 방법
                 string query = "DELETE FROM books WHERE book_idx = @book_idx";
 
-                int resultRow = databaseHelper.Execute(query,
+                int resultRow = databaseHelper.Execute(query, 
                                     new MySqlParameter("@book_idx", bookIdx)
                                 );
 
                 if (resultRow > 0)
                 {
-                    // [수정] ContentEnd를 Text 속성으로 변경
-                    SbiResMsg.Text = $"{bookIdx}번 도서가 삭제되었습니다.";
-
-                    // [추가] 삭제되었으므로 현재 입력창에 남아있는 인덱스 정보도 0으로 초기화합니다.
-                    NudBookIdx.Value = 0;
+                    SbiResMsg.Content = $"{bookIdx}번 도서가 삭제되었습니다";
 
                     ClearInputs();
-                    LoadData(); // 데이터조회 (목록 새로고침)
+                    LoadData(); // 데이터 재조회
+                } else
+                {
+                    SbiResMsg.Content = "삭제된 도서가 없습니다";
                 }
             }
             catch (Exception ex)
             {
-                // [수정] Content를 Text 속성으로 변경
-                SbiResMsg.Text = $"데이터삭제 오류 : {ex.Message}";
+                SbiResMsg.Content = $"데이터삭제 오류 : {ex.Message}";
             }
         }
-    } // 2. 클래스(MainWindow) 닫기
-} // 3. 네임스페이스(Namespace) 닫기
+    }
+}

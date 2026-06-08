@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace WpfBasic04UiApp
+namespace WpfBasic04DbApp
 {
     /// <summary>
     /// Interaction logic for App.xaml
