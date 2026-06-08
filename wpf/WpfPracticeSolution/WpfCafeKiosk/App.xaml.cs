@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace WpfBasic02Navi
+namespace WpfCafeKiosk
 {
     /// <summary>
     /// Interaction logic for App.xaml
