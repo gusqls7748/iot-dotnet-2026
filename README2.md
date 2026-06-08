@@ -69,4 +69,8 @@ is_sale CHAR(1) DEFAULT 'Y'
 #### 기본 동작 이벤트 구현
 
 
+https://github.com/user-attachments/assets/b323ca18-f6f8-41ae-894e-19fbe9772bd0
+
+
+
 ## Open Ai 연동앱 개발
