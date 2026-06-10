@@ -1,3 +1,7 @@
+
+
+https://github.com/user-attachments/assets/8c36e74e-f6bb-4796-bf82-a0c466111fdb
+
 # 2026 닷넷 개발자 데스크톱 개발
 
 ## WPF 실습
@@ -122,7 +126,11 @@ https://github.com/user-attachments/assets/3fab497c-5e01-4800-bcfa-f0301174ea63
 
 #### 실행결과
 
-https://github.com/user-attachments/assets/cc2548dd-6838-4eaf-8879-fa125ae17933
+
+
+https://github.com/user-attachments/assets/dee363a3-142f-4d97-9757-875775db7932
+
+
 
 - 프로젝트 속성 > 출력 유형
 
