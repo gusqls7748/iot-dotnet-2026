@@ -40,7 +40,7 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Label Content="수량" VerticalAlignment="Center" Margin="0,0,20,0" Foreground="DimGray" FontWeight="Bold" ></Label>
                     <Button x:Name="BtnMinus" Width="30" Height="30" Padding="0" Content="-" FontWeight="Bold" Background="#FF5A45" Foreground="White" Click="BtnMinus_Click" />
-                    <TextBlock x:Name="TxtQty" Text="1" Width="50" FontSize="13" TextAlignment="Center" VerticalAlignment="Center" />
+                    <TextBlock x:Name="TxtQty" Text="0" Width="50" FontSize="13" TextAlignment="Center" VerticalAlignment="Center" />
                     <Button x:Name="BtnPlus" Width="30" Height="30" Padding="0" Content="+" FontWeight="Bold" Background="#FF5A45" Foreground="White" Click="BtnPlus_Click" />
                 </StackPanel>
             </Border>

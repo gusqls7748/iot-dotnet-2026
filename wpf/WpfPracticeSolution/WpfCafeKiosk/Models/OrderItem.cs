@@ -8,7 +8,7 @@
         public string MenuName { get; set; }
         public int Price { get; set; }
         public int Count { get; set; }
-        
+
         // get { return Price * Count; }
         public int TotalPrice { get; set; }
     }
