@@ -110,6 +110,7 @@ https://github.com/user-attachments/assets/3fab497c-5e01-4800-bcfa-f0301174ea63
 - [X] 메인창에서 옵션창으로 MenuId 전달
 - [ ] DB연동!! 메뉴 SELECT /주문내역 INSERT
 - [X] 메뉴 동적 바인딩!!
+- [ ] DB 저장 후 신용카드 결제 팝업(더미)
 
 #### 옵션창 주문내역 확인
 
@@ -123,11 +124,19 @@ https://github.com/user-attachments/assets/3fab497c-5e01-4800-bcfa-f0301174ea63
 
 https://github.com/user-attachments/assets/cc2548dd-6838-4eaf-8879-fa125ae17933
 
+- 프로젝트 속성 > 출력 유형
 
+![alt text](image-34.png)
 
+### 애플리케이션
 
+![alt text](image-35.png)
 
+#### DB 주문내역 등록
 
+- DabaseHelper에 INSERT 처리 메서드 생성
+- MainWindow.xaml.cs에 저장쿼리 실행 메서드 생성
+- BtnPay_Click 이벤트 핸들러에 저장 메서드 추가
 
 ### OpenAPI 연동앱 개발
 

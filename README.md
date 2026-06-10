@@ -914,10 +914,6 @@ if (!int.TryParse(TxtPrice.Text, out int price))
 #### Presenter (나중에)
 - 컨트롤의 실제 내용을 화면에 표시하는 자리
 
-### 키오스크 앱
-- 결재이전까지 동작하는 버전
-- WPF를 사용해서 구현
-
 ### OpenAPI연동 앱
 - 미세먼지 모니터링앱
 - 국가교통정보 CCTV뷰 앱
