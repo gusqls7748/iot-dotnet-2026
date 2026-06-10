@@ -122,7 +122,11 @@ https://github.com/user-attachments/assets/3fab497c-5e01-4800-bcfa-f0301174ea63
 
 #### 실행결과
 
-https://github.com/user-attachments/assets/1003c297-420b-46f2-8b83-9a4a416dee7e
+
+
+https://github.com/user-attachments/assets/03f31d19-41bd-4184-8fd0-09e19677055c
+
+
 
 #### 로그확인 방법
 
@@ -150,7 +154,11 @@ https://github.com/user-attachments/assets/1003c297-420b-46f2-8b83-9a4a416dee7e
 
 #### 전체 실행결과
 
-https://github.com/user-attachments/assets/403de1f6-c17f-4595-90b7-f50b87cc80dc
+
+
+https://github.com/user-attachments/assets/e24c4317-ed38-41d9-bb26-7cbf9b59ce6d
+
+
 
 ---
 
