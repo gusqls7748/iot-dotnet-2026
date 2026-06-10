@@ -14,7 +14,8 @@ namespace WpfBusanFestivalApp.Services
         //private readonly string ServiceKey = "....XlJz%2B%2FK8A%3D%3D";        
         private string? ServiceKey { get; set; }
 
-        public FestivalApiService() { 
+        public FestivalApiService()
+        {
 
             ServiceKey = Environment.GetEnvironmentVariable("BUSAN_FESTIVAL_API_KEY");
         }

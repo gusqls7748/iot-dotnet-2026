@@ -2,7 +2,7 @@
 
 namespace WpfBusanFestivalApp.Models
 {
-    public class FestivalItem 
+    public class FestivalItem
     {
         // JSON에 UC_SEQ 키값을 UcSeq로 변환해주는 작업
         // 메서드로 자동 변환
