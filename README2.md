@@ -122,11 +122,7 @@ https://github.com/user-attachments/assets/3fab497c-5e01-4800-bcfa-f0301174ea63
 
 #### 실행결과
 
-
-
-https://github.com/user-attachments/assets/03f31d19-41bd-4184-8fd0-09e19677055c
-
-
+https://github.com/user-attachments/assets/1003c297-420b-46f2-8b83-9a4a416dee7e
 
 #### 로그확인 방법
 
@@ -154,11 +150,7 @@ https://github.com/user-attachments/assets/03f31d19-41bd-4184-8fd0-09e19677055c
 
 #### 전체 실행결과
 
-
-
-https://github.com/user-attachments/assets/e24c4317-ed38-41d9-bb26-7cbf9b59ce6d
-
-
+https://github.com/user-attachments/assets/403de1f6-c17f-4595-90b7-f50b87cc80dc
 
 ---
 
@@ -310,16 +302,178 @@ https://github.com/user-attachments/assets/e24c4317-ed38-41d9-bb26-7cbf9b59ce6d
 
 #### 추가 작업
 
-- [ ] NLog 로그처리
-- [ ] MahApps.Metro.IconPacks 사용
-- [ ] 비동기 메서드 수정
-- [ ] 페이지번호, 결과수 파라미터 사용하기
-- [ ] 검색버튼 기능
-- [ ] 데이터그리드 포커스 색상 반전
-- [ ] 데이터그리드 레코드 클릭시 상세 팝업
-- [ ] 데이터그리드 레코드 더블클릭시 지도 팝업
-- [ ] 기타 예외처리
+- [x] NLog 로그처리
+- [x] MahApps.Metro.IconPacks 사용
+- [x] 페이지번호, 결과수 파라미터 사용 검색
+- [x] 데이터그리드 포커스 색상 반전
+- [x] 기타 예외처리
+- [x] 데이터그리드 레코드 더블클릭시 상세정보 및 지도 팝업
+- [x] 상세정보 상세내용 HTML 태그 삭제
+- [x] 상태표시줄 로드완료 메시지 출력
+- [x] 상세정보 홈페이지 띄우기
+- [x] 비동기 메서드 수정
 
-### SmartHome 솔루션
+#### C# 코딩방식 변경
+- 좀더 효율적인 코딩방식 채택
+```cs
+// 1번 예전 C#방식
+if (response != null &&  
+    response.FestivalData != null &&
+    response.FestivalData.Items != null)
+{
+    return response.FestivalData.Items;
+} 
+else
+{
+    return new ObservableCollection<FestivalItem>(); // 빈 리스트
+}
+
+// 2번 좀더 최근 C#방식
+return response?.FestivalData?.Items?? new ObservableCollection<FestivalItem>();
+```
+
+- ?. response 가 null이면 null을 반환, 아니면 response.FestivalData로 진입
+- ??  객체가 null이면 ?? 다음의 객체로 반환
+
+#### NuGet 패키지
+
+- 느낌표 아이콘이 뜨면 패키지 사용이 거의 불가
+
+![alt text](image-36.png)
+
+#### NLog
+- .NET 앱용 로깅 라이브러리
+- 이전 log4j.net 자바라이브러리를 C#용으로 수정한 라이브러리 사용
+- MessageBox.show(), Console.WriteLine() 디버깅 후에 주석처리 또는 삭제
+- 로그를 파일이나 DB에 저장하는 형태로 사용 가능
+
+##### NuGet 패키지에서 설치
+
+##### NLog.config 설정
+- 프로젝트 최상위 폴더에서 xml 파일로 NLog.config를 생성
+- 아래와 같이 작성
+
+  ```xml
+  <?xml version="1.0" encoding="utf-8" ?>
+  <nlog xmlns="http://www.nlog-project.org/schemas/NLog.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.nlog-project.org/schemas/NLog.xsd NLog.xsd">
+
+      <targets>
+          <target name="logfile" xsi:type="File" fileName="logfile.txt" />
+          <target name="logconsole" xsi:type="Console" />
+      </targets>
+
+      <rules>
+          <logger name="*" minlevel="Info" writeTo="logconsole" />
+          <logger name="*" minlevel="Debug" writeTo="logfile" />
+      </rules>
+  </nlog>
+  ```
+
+- NLog.config 파일 속성 > `빌드 작업 : 내용(컨텐츠)`, `출력 디렉토리로 복사 : 항상 복사` 변경
+- 빌드
+
+##### NLog 사용법
+
+```cs
+// NLog 기본 객체 생성방법
+private readonly Logger logger = LogManager.GetCurrentClassLogger();
+
+logger.Info("부산 페스티벌정보앱 시작.");
+logger.Trace("트레이스");
+logger.Debug("디버그");
+logger.Warn("경고");
+logger.Error("예외발생");
+logger.Fatal("메우 중대한 오류");
+```
+
+![alt text](image-38.png)
+
+#### Common 클래스 생성
+
+```cs
+public static readonly Logger logger = LogManager.GetCurrentClassLogger();
+```
+
+#### WinForms, WPF 기본 웹브라우저 컨트롤 문제
+
+- HTML렌더링 엔진이 최신 스크립트를 지원하지 않음
+
+![alt text](image-37.png)
+
+- CefSharp.WPF 라이브러리 사용
+
+#### 추가 개발건
+
+- [ ] (하) 결과수에서 값을 변경하고 엔터키를 누르면 바로 검색진행
+- [ ] (하) 전체 데이터수를 넘어서는 페이지번호, 결과수 제약
+- [ ] (하) 웹사이트 링크대신 아이콘버튼으로 변경
+- [ ] (하) MIDDLE_SIZE_RM1 장애인 정보 표현
+- [ ] (중) HTMl 삭제 대신 CefSharp.WPF 브라우저로 HTML 렌더링 표현
+- [ ] (상) 유튜브 검색결과와 연동, 링크누르면 유튜브 실행하게
+- [ ] (상) 구글맵 API 사용해서 구글맵 표현
+
+#### 데이터포털 부산 API 활용방법
+- 축제정보와 거의 동일한 서비스 
+  - 부산광역시_부산맛집정보 서비스
+  - 부산광역시_부산명소정보 서비스
+  - 부산광역시_부산테마여행정보 서비스
+  - 부산광역시_부산도보여행정보 서비스
+  - 부산광역시_부산쇼핑정보 서비스
+
+- 유사한 서비스
+  - 부산광역시_공연장 목록 서비스
+  - 부산광역시_갈맷길 코스 정보 서비스
+  - 부산광역시_구군 모범음식점 현황
+
+- 관광공사에서 API를 신규발급 서비스
+  - 부산 음식테마거리
+  - 부산 7beach 음식관광
+
+
+#### 완성 실행결과
+
+https://github.com/user-attachments/assets/b2f63508-2c0e-4b86-93fe-90f76c27550c
+
+### 1.3. SmartHome 솔루션
+
+#### MQTT
+
+- Message Queuing Telmetry Transport 프로토콜 명칭
+- IoT 장치간에 데이터를 주고받을 수 있도록 개발
+- ISO/IEC 20922 국제 표준
+- 발행-구독(Publish-Subscribe) 기반
+  - Apache Kafka : Java, Spring Boot
+  - ROS2 DDS : 로봇
+  - MQTT : IoT, 스마트팩토리
+  - RabbitMQ : 기업메시징
+  - SignalR : 실시간웹
+  - WebSocket 브로드캐스트 : 실시간웹
+- 소켓통신, TCP/IP 기반
+
+- MQTT 동작방식
+
+![alt text](image-39.png)
+
+- MQTT 시스템 구성도
+
+![alt text](image-40.png)
+
+#### WPF SmartHome 프로젝트
+
+- Dummy Sensing Data 생성, 송신 시뮬레이터 앱 구현
+- MQTT 브로커 설치 및 설정
+- SmartHome 모니터링 앱 구현
+
+#### MQTT 브로커
+
+#### Dummy Simulator앱
+
+#### SmartHome 모니터링 앱
+
+### MVVM은 나중에
+
+#### Dummy IoT Data 생성
+- 1초마다 DB에 저장
 
 ## Unity 실습

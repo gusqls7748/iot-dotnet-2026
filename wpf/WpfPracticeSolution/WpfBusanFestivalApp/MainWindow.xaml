@@ -10,6 +10,11 @@
     mc:Ignorable="d"
     Title="부산 축제정보 V1.0" Height="600" Width="1000"
     WindowStartupLocation="CenterScreen" Loaded="MetroWindow_Loaded">
+    <mah:MetroWindow.IconTemplate>
+        <DataTemplate>
+            <iconPacks:PackIconMaterialDesign Kind="FestivalOutline" Foreground="White" Margin="10,7,0,0" />
+        </DataTemplate>
+    </mah:MetroWindow.IconTemplate>
     <DockPanel Background="#F7F7F7">
 
         <!-- 하단 상태바 -->
@@ -17,7 +22,11 @@
                    Height="28"
                    Foreground="White">
             <StatusBarItem>
-                <TextBlock Text="데이터포털 API 활용앱"/>
+                <TextBlock Text="데이터포털 API 활용앱"/>                
+            </StatusBarItem>
+            <Separator Background="White" />
+            <StatusBarItem>
+                <TextBlock x:Name="SbiStatus" />
             </StatusBarItem>
         </StatusBar>
 
@@ -77,11 +86,14 @@
                     <Button x:Name="BtnSearch"
                             Width="75"
                             Height="38"
-                            Content="검색"                            
                             Foreground="White"                            
                             FontWeight="Bold"
-                            Style="{StaticResource MahApps.Styles.Button.Dialogs.Accent}"
-                            />
+                            Style="{StaticResource MahApps.Styles.Button.Dialogs.Accent}" Click="BtnSearch_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <iconPacks:PackIconBoxIcons Kind="RegularSearch" Margin="0,0,5,0" />
+                            <TextBlock Text="검 색" />
+                        </StackPanel>
+                    </Button>
                 </StackPanel>
             </Grid>
 
@@ -96,7 +108,7 @@
                       RowHeaderWidth="0"
                       SelectionMode="Single"
                       SelectionUnit="FullRow"
-                      IsReadOnly="True"
+                      IsReadOnly="True" MouseDoubleClick="DgrFestival_MouseDoubleClick"
                       >
 
                 <DataGrid.Columns>
