@@ -97,7 +97,11 @@ CREATE TABLE order_detail
 
 #### 기본 동작 이벤트 구현
 
-https://github.com/user-attachments/assets/3fab497c-5e01-4800-bcfa-f0301174ea63
+
+
+https://github.com/user-attachments/assets/2d680bb0-ed53-4d3f-8cd3-e079f4768ffd
+
+
 
 ### 카페 키오스크 구현 리스트
 
@@ -122,7 +126,11 @@ https://github.com/user-attachments/assets/3fab497c-5e01-4800-bcfa-f0301174ea63
 
 #### 실행결과
 
-https://github.com/user-attachments/assets/1003c297-420b-46f2-8b83-9a4a416dee7e
+
+
+https://github.com/user-attachments/assets/fa3787fd-2e0a-4e98-962d-c90fd4fc34c1
+
+
 
 #### 로그확인 방법
 
@@ -150,7 +158,11 @@ https://github.com/user-attachments/assets/1003c297-420b-46f2-8b83-9a4a416dee7e
 
 #### 전체 실행결과
 
-https://github.com/user-attachments/assets/403de1f6-c17f-4595-90b7-f50b87cc80dc
+
+
+https://github.com/user-attachments/assets/dad95804-fc31-4b39-9f3c-5635d548f8ca
+
+
 
 ---
 
@@ -433,7 +445,11 @@ public static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
 #### 완성 실행결과
 
-https://github.com/user-attachments/assets/b2f63508-2c0e-4b86-93fe-90f76c27550c
+
+
+https://github.com/user-attachments/assets/a5ad34df-72d8-4c9d-bac0-0417e10ab27b
+
+
 
 ### 1.3. SmartHome 솔루션
 
