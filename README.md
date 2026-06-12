@@ -935,16 +935,3 @@ if (!int.TryParse(TxtPrice.Text, out int price))
 - [소스](./winapp/IotWpfSolutions/WpfBasic04DbApp/MainWindow.xaml.cs)
 
 > [다음](./README2.md)
-
-### 리소스 디자인 추가
-
-#### Presenter (나중에)
-
-- 컨트롤의 실제 내용을 화면에 표시하는 자리
-
-
-### 라이브러리 만들기
-
-### Essential Pathway 학습
-
-### 유니티 디지털트윈
