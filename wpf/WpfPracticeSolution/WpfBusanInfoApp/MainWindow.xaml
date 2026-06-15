@@ -1,0 +1,140 @@
+﻿<mah:MetroWindow 
+    x:Class="WpfBusanInfoApp.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:local="clr-namespace:WpfBusanInfoApp"
+    mc:Ignorable="d"
+    Title="부산 맛집정보 V1.0" Height="600" Width="1000"
+    WindowStartupLocation="CenterScreen" Loaded="MetroWindow_Loaded">
+    <mah:MetroWindow.IconTemplate>
+        <DataTemplate>
+            <iconPacks:PackIconMaterialDesign Kind="Restaurant" Foreground="White" Margin="10,7,0,0" />
+        </DataTemplate>
+    </mah:MetroWindow.IconTemplate>
+    <DockPanel Background="#F7F7F7">
+
+        <!-- 하단 상태바 -->
+        <StatusBar DockPanel.Dock="Bottom"
+                   Height="28"
+                   Foreground="White">
+            <StatusBarItem>
+                <TextBlock Text="데이터포털 API 활용앱 v1.5"/>                
+            </StatusBarItem>
+            <Separator Background="White" />
+            <StatusBarItem>
+                <TextBlock x:Name="SbiStatus" />
+            </StatusBarItem>
+        </StatusBar>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- 제목 -->
+            <TextBlock Grid.Row="0"
+                       Text="부산 맛집정보"
+                       FontSize="22"
+                       FontWeight="Bold"
+                       Foreground="#111"
+                       Margin="12,10,0,8"/>
+
+            <!-- 검색 영역 -->
+            <Grid Grid.Row="1" Margin="10,0,10,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="1"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Center">
+
+                    <TextBlock Text="페이지번호"
+                               VerticalAlignment="Center"
+                               FontWeight="Bold"
+                               Margin="0,0,8,0"/>
+
+                    <mah:NumericUpDown x:Name="NumPageNo"
+                                   Width="80"
+                                   Height="38"
+                                   Minimum="1"
+                                   Value="1"
+                                   FontSize="16"                                       
+                                   Margin="0,0,12,0"/>
+
+                    <TextBlock Text="결과수"
+                               VerticalAlignment="Center"
+                               FontWeight="Bold"
+                               Margin="0,0,8,0"/>
+
+                    <mah:NumericUpDown x:Name="NumOfRows"
+                                   Width="80"
+                                   Height="38"
+                                   Minimum="1"
+                                   Maximum="100"
+                                   Value="10"
+                                   FontSize="16"
+                                   Margin="0,0,12,0"/>
+
+                    <Button x:Name="BtnSearch"
+                            Width="75"
+                            Height="38"
+                            Foreground="White"                            
+                            FontWeight="Bold"
+                            Style="{StaticResource MahApps.Styles.Button.Dialogs.Accent}" Click="BtnSearch_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <iconPacks:PackIconBoxIcons Kind="RegularSearch" Margin="0,0,5,0" />
+                            <TextBlock Text="검 색" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <!-- 데이터 목록 -->
+            <DataGrid Grid.Row="2"
+          x:Name="DgrFood"
+          Margin="10,0,10,0"
+          AutoGenerateColumns="False"
+          CanUserAddRows="False"
+          HeadersVisibility="Column"
+          GridLinesVisibility="Horizontal"
+          RowHeaderWidth="0"
+          SelectionMode="Single"
+          SelectionUnit="FullRow"
+          IsReadOnly="True" 
+          MouseDoubleClick="DgrFood_MouseDoubleClick"
+          RowHeight="60">
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="Background" Value="#E0E0E0"/>
+                        <Setter Property="Padding" Value="5"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="번호" Binding="{Binding UcSeq}" Width="55"/>
+                    <DataGridTemplateColumn Header="대표이미지" Width="85">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding MainImgThumb}" Width="60" Height="42" Stretch="UniformToFill" Margin="2"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="맛집명" Binding="{Binding Title}" Width="170"/>
+                    <DataGridTextColumn Header="구군" Binding="{Binding GugunNm}" Width="80"/>
+                    <DataGridTextColumn Header="주소" Binding="{Binding Addr1}" Width="*"/>
+                    <DataGridTextColumn Header="운영시간" Binding="{Binding OpTime}" Width="150"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </DockPanel>
+</mah:MetroWindow>

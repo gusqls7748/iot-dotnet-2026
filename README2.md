@@ -97,11 +97,7 @@ CREATE TABLE order_detail
 
 #### 기본 동작 이벤트 구현
 
-
-
-https://github.com/user-attachments/assets/2d680bb0-ed53-4d3f-8cd3-e079f4768ffd
-
-
+https://github.com/user-attachments/assets/3fab497c-5e01-4800-bcfa-f0301174ea63
 
 ### 카페 키오스크 구현 리스트
 
@@ -126,11 +122,7 @@ https://github.com/user-attachments/assets/2d680bb0-ed53-4d3f-8cd3-e079f4768ffd
 
 #### 실행결과
 
-
-
-https://github.com/user-attachments/assets/fa3787fd-2e0a-4e98-962d-c90fd4fc34c1
-
-
+https://github.com/user-attachments/assets/1003c297-420b-46f2-8b83-9a4a416dee7e
 
 #### 로그확인 방법
 
@@ -158,11 +150,9 @@ https://github.com/user-attachments/assets/fa3787fd-2e0a-4e98-962d-c90fd4fc34c1
 
 #### 전체 실행결과
 
+https://github.com/user-attachments/assets/403de1f6-c17f-4595-90b7-f50b87cc80dc
 
-
-https://github.com/user-attachments/assets/dad95804-fc31-4b39-9f3c-5635d548f8ca
-
-
+- [소스폴더](./wpf/WpfPracticeSolution/WpfCafeKiosk/)
 
 ---
 
@@ -445,13 +435,15 @@ public static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
 #### 완성 실행결과
 
+https://github.com/user-attachments/assets/b2f63508-2c0e-4b86-93fe-90f76c27550c
 
-
-https://github.com/user-attachments/assets/a5ad34df-72d8-4c9d-bac0-0417e10ab27b
-
-
+- [소스폴더](./wpf/WpfPracticeSolution/WpfBusanFestivalApp/)
 
 ### 1.3. SmartHome 솔루션
+
+- 참조 UI 이미지
+
+![alt text](image-48.png)
 
 #### MQTT
 
@@ -603,6 +595,21 @@ password_file C:/Program Files/Mosquitto/password.txt
 
 ##### MQTTnet 패키지 설치
 - NuGet 패키지 관리에서 MQTTnet 검색 후 설치
+
+##### 실행화면
+
+
+
+---
+
+#### MQTT Subscribe 앱
+- MQTT 메시지 수신, DB 저장 기능
+- MQTT Publish 앱 복사, 커스터마이징
+
+##### 구독 실행화면
+
+
+
 
 #### SmartHome 모니터링 앱
 - MQTT Subscribe 기능

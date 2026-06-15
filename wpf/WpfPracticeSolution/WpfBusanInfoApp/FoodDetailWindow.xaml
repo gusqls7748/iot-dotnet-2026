@@ -1,0 +1,73 @@
+﻿<mah:MetroWindow
+    x:Class="WpfBusanInfoApp.FoodDetailWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:cefSharp="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+    xmlns:local="clr-namespace:WpfBusanInfoApp"
+    mc:Ignorable="d"
+    Title="맛집 상세정보" Height="800" Width="800"
+    WindowStartupLocation="CenterOwner">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="20">
+
+            <Border CornerRadius="12"
+                    Background="#EEE"
+                    Height="320"
+                    ClipToBounds="True">
+                <Image Source="{Binding MainImgNormal}"
+           Stretch="Uniform" 
+           VerticalAlignment="Center"
+           HorizontalAlignment="Center"/>
+            </Border>
+
+            <TextBlock Text="{Binding Title}"
+                       FontSize="26"
+                       FontWeight="Bold"
+                       Margin="0,20,0,10"
+                       TextWrapping="Wrap"/>
+
+            <Separator Margin="0,5,0,15"/>
+
+            <TextBlock Text="구군"
+                       FontWeight="Bold"/>
+            <TextBlock Text="{Binding GugunNm}"
+                       Margin="0,0,0,12"/>
+
+            <TextBlock Text="주소"
+                       FontWeight="Bold"/>
+            <TextBlock Text="{Binding Addr1}"
+                       TextWrapping="Wrap"
+                       Margin="0,0,0,12"/>
+
+            <TextBlock Text="장소"
+                       FontWeight="Bold"/>
+            <TextBlock Text="{Binding Place}"
+                       TextWrapping="Wrap"
+                       Margin="0,0,0,12"/>
+
+            <cefSharp:ChromiumWebBrowser x:Name="MapBrowser" Height="200" Background="Azure" Margin="5" />
+
+            <TextBlock Text="운영시간"
+                       FontWeight="Bold"/>
+            <TextBlock Text="{Binding OpTime}"
+                       TextWrapping="Wrap"
+                       Margin="0,0,0,12"/>
+
+            <TextBlock Text="상세내용"
+           FontWeight="Bold"
+           FontSize="18"
+           Margin="0,15,0,8"/>
+
+            <RichTextBox x:Name="RtbItemContents"
+             IsReadOnly="True"
+             BorderThickness="0"                         
+             Margin="0,0,0,20"/>
+
+
+        </StackPanel>
+    </ScrollViewer>
+</mah:MetroWindow>
