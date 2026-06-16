@@ -635,7 +635,7 @@ CREATE TABLE sensor_data
 
 ![alt text](image-49.png)
 
-##### 20시간 실행결과]
+##### 20시간 실행결과
 
 - 대략 29만4천건 저장
 - `SELECT count(*) FROM sensor_data;`
