@@ -97,7 +97,9 @@ CREATE TABLE order_detail
 
 #### 기본 동작 이벤트 구현
 
-https://github.com/user-attachments/assets/3fab497c-5e01-4800-bcfa-f0301174ea63
+
+https://github.com/user-attachments/assets/63e41c85-0934-4c7b-a512-9e06ec91b4b0
+
 
 ### 카페 키오스크 구현 리스트
 
@@ -122,7 +124,9 @@ https://github.com/user-attachments/assets/3fab497c-5e01-4800-bcfa-f0301174ea63
 
 #### 실행결과
 
-https://github.com/user-attachments/assets/1003c297-420b-46f2-8b83-9a4a416dee7e
+
+https://github.com/user-attachments/assets/81042beb-63ec-4bb0-88a4-8b1ed160c3ab
+
 
 #### 로그확인 방법
 
@@ -150,7 +154,7 @@ https://github.com/user-attachments/assets/1003c297-420b-46f2-8b83-9a4a416dee7e
 
 #### 전체 실행결과
 
-https://github.com/user-attachments/assets/403de1f6-c17f-4595-90b7-f50b87cc80dc
+https://github.com/user-attachments/assets/5b6e321b-9e0e-48fa-bd13-db8cf59264c3
 
 - [소스폴더](./wpf/WpfPracticeSolution/WpfCafeKiosk/)
 
@@ -435,7 +439,9 @@ public static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
 #### 완성 실행결과
 
-https://github.com/user-attachments/assets/b2f63508-2c0e-4b86-93fe-90f76c27550c
+
+https://github.com/user-attachments/assets/5936d13b-d8d7-477c-a019-2f3f7e46022f
+
 
 - [소스폴더](./wpf/WpfPracticeSolution/WpfBusanFestivalApp/)
 
@@ -598,7 +604,11 @@ password_file C:/Program Files/Mosquitto/password.txt
 
 ##### 실행화면
 
-https://github.com/user-attachments/assets/4749c579-4239-4940-846b-4ceea4f8086b
+
+
+https://github.com/user-attachments/assets/efc962c7-9325-48ec-93c5-a10545ce6c22
+
+
 
 ---
 
@@ -608,7 +618,11 @@ https://github.com/user-attachments/assets/4749c579-4239-4940-846b-4ceea4f8086b
 
 ##### 구독 실행화면
 
-https://github.com/user-attachments/assets/0844072f-f579-4127-a76e-351a69ffcc25
+
+
+https://github.com/user-attachments/assets/e08078e7-e4b2-4574-8b12-7844b59ac25b
+
+
 
 ##### NuGet 패키지 설치
 
