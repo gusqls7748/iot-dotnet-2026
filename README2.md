@@ -598,7 +598,7 @@ password_file C:/Program Files/Mosquitto/password.txt
 
 ##### 실행화면
 
-
+https://github.com/user-attachments/assets/4749c579-4239-4940-846b-4ceea4f8086b
 
 ---
 
@@ -608,19 +608,45 @@ password_file C:/Program Files/Mosquitto/password.txt
 
 ##### 구독 실행화면
 
+https://github.com/user-attachments/assets/0844072f-f579-4127-a76e-351a69ffcc25
 
+##### NuGet 패키지 설치
 
+- MySQLConnector 추가
+
+##### DB 테이블 생성
+
+```sql
+CREATE TABLE sensor_data
+(
+    sensor_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    home_id VARCHAR(50) NOT NULL,
+    room_name VARCHAR(50) NOT NULL,
+    sensing_datetime DATETIME NOT NULL,
+    temp DOUBLE NOT NULL,
+    humid DOUBLE NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+##### DB 저장 확인
+
+![alt text](image-50.png)
+
+![alt text](image-49.png)
+
+##### 20시간 실행결과]
+
+- 대략 29만4천건 저장
+- `SELECT count(*) FROM sensor_data;`
+
+![alt text](image-51.png)
+
+---
 
 #### SmartHome 모니터링 앱
 - MQTT Subscribe 기능
 
-#### Dummy IoT Data 생성
-- 1초마다 DB에 저장
-
 ### MVVM은 나중에
 
-## 2. Unity 실습
-
-### 2.1. Essentials PathWay
-
-### 2.2. Unity Factory
+[다음](./README3.md)
