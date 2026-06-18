@@ -262,6 +262,11 @@ public class Collectable : MonoBehaviour
 }
 ```
 
+
+https://github.com/user-attachments/assets/52584eb0-7027-4d4f-aa41-d06f0ebb4a8c
+
+
+
 #### 점프기능 추가
 
 - PlayerController.cs에 공용변수, Update() 추가
@@ -586,6 +591,12 @@ public class BoxSpawner : MonoBehaviour {
 - Spawner 빈오브젝트에 스크립트 할당
 
 #### 실행결과
+
+
+
+https://github.com/user-attachments/assets/33658be9-7855-4d7f-9c2f-262c36db39e9
+
+
 
 
 
