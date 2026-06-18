@@ -597,6 +597,13 @@ public class BoxSpawner : MonoBehaviour {
 https://github.com/user-attachments/assets/33658be9-7855-4d7f-9c2f-262c36db39e9
 
 
+#### 컨베이어 벨트 여러개 구성
+
+- 프리팹 드래그 추가
+
+#### 컨베이어 벨트 멈추기 기능
+
+- Conveyorb
 
 
 
