@@ -373,6 +373,39 @@ public class DayNightCycle : MonoBehaviour
   }
 ```
 
+![alt text](image-108.png)
+
+- Heirarc
+
+![alt text](image-110.png)
+
+- Cube 상태에서...
+- Vertex Selection(점 선택), Edge Selection(선 선택), Face Selection(면 선택)
+- Move, Rotate, Sclae 기능으로 오브젝트 Shape를 변형
+
+![alt text](image-111.png)
+
+- 3D 모델링툴 Blender와 유사한 기능
+
+#### Tip
+
+- 바닥 오브젝트(Plane)와 기타 오브젝트(cube 등)를 공간없이
+    - cube에서 V키 누른 상태에서 위치이동
+
+![alt text](image-112.png)
+
+![alt text](image-113.png)
+
+![alt text](image-114.png)
+![alt text](image-116.png)
+
+- Face... 클릭 반대편 먼 클릭, Context Menu 
+
+
+#### 오브젝트 변형법
+
+![alt text](image-109.png)
+
 ![alt text](image-84.png)
 
 #### 방문열기 기능
@@ -605,7 +638,114 @@ https://github.com/user-attachments/assets/33658be9-7855-4d7f-9c2f-262c36db39e9
 
 - Conveyorb
 
+![alt text](image-103.png)
 
+- 컨베이어 끝에 센서가 있다고가정. Collider 트리거 발생하면 멈춤가능
+- 빈 오브젝트 생성 > `Sensor` 명명
+- Sensor 오브젝트 > 
+
+![alt text](image-104.png)
+
+- SensorTrigger.cs 스크립트 생성
+
+```c#
+using UnityEngine;
+
+public class SensorTrigger : MonoBehaviour
+{
+    // 다른 Collider가 들어와서 Trigger 발생하면?
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("제품감지!");
+    }
+}
+
+```
+
+- Sensor 객체에 스크립트 추가
+- 콘솔로 변경, 실행
+
+- SensorTrigger.cs 스크립트 재수정
+
+```cs
+public class SensorTrigger : MonoBehaviour
+{
+    [Header("컨베이어 1")]
+    public ConveyorBelt conveyor1;
+
+    [Header("컨베이어 2")]
+    public ConveyorBelt conveyor2;
+
+    private bool isProcessing = false;
+
+    // 다른 Collider가 들어와서 Trigger 발생하면?
+    private void OnTriggerEnter(Collider other)
+    {
+        if (isProcessing) return;
+
+        if (other.CompareTag("Product"))
+        {
+            // 시간이 걸리는 작업을 여러 프레임에 나눠서 실행하는 기능
+            StartCoroutine(Process());
+        }
+    }
+
+    private IEnumerator Process()
+    {
+        isProcessing = true;
+
+        Debug.Log("제품 감지!");
+
+        conveyor1.Stop();  // isRunning = false;
+        conveyor2.Stop();
+
+        yield return new WaitForSeconds(3.0f);  // 3초동안 대기한 뒤 다음로직으로 
+
+        conveyor1.StartBelt();
+        conveyor2.StartBelt();
+
+        yield return new WaitForSeconds(1.0f); 
+
+        isProcessing = false;
+    }
+}
+
+```
+- Convetorbelt
+
+![alt text](image-105.png)
+![alt text](image-117.png)
+![alt text](image-118.png)
+![alt text](image-119.png)
+![alt text](image-120.png)
+![alt text](image-121.png)
+https://www.youtube.com/watch?v=Hsw9KDcOBOw
+#### 벨트 동작화면
+
+- mp4 등록예정
+
+
+#### 컨베이어, 스폰 기능 동기화
+
+- TODO
+
+---
+
+### 2.4. ProBuilder
+
+#### 개요
+
+Unity에서 건물을 손쉽게 만들 수 있도록 도와주는 패키지
+
+#### 설치
+
+- Window > Package Manager > Unity Regustry에서 `ProBuilder` 검색 후 설치
+
+![alt text](image-107.png)
+![alt text](image-106.png)
+![alt text](image-115.png)
+
+####
 
 ### 2.3. Unity Factory
 
