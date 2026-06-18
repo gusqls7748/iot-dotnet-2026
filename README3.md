@@ -262,10 +262,9 @@ public class Collectable : MonoBehaviour
 }
 ```
 
+#### 실행화면
 
-https://github.com/user-attachments/assets/52584eb0-7027-4d4f-aa41-d06f0ebb4a8c
-
-
+https://github.com/user-attachments/assets/a1255594-b84e-4120-b15b-37b113ea0f49
 
 #### 점프기능 추가
 
@@ -372,39 +371,6 @@ public class DayNightCycle : MonoBehaviour
       }
   }
 ```
-
-![alt text](image-108.png)
-
-- Heirarc
-
-![alt text](image-110.png)
-
-- Cube 상태에서...
-- Vertex Selection(점 선택), Edge Selection(선 선택), Face Selection(면 선택)
-- Move, Rotate, Sclae 기능으로 오브젝트 Shape를 변형
-
-![alt text](image-111.png)
-
-- 3D 모델링툴 Blender와 유사한 기능
-
-#### Tip
-
-- 바닥 오브젝트(Plane)와 기타 오브젝트(cube 등)를 공간없이
-    - cube에서 V키 누른 상태에서 위치이동
-
-![alt text](image-112.png)
-
-![alt text](image-113.png)
-
-![alt text](image-114.png)
-![alt text](image-116.png)
-
-- Face... 클릭 반대편 먼 클릭, Context Menu 
-
-
-#### 오브젝트 변형법
-
-![alt text](image-109.png)
 
 ![alt text](image-84.png)
 
@@ -540,6 +506,10 @@ private void OnTriggerEnter(Collider other)
 
 ![alt text](image-100.png)
 
+---
+
+### 2.3. 생산라인 구축
+
 #### 생산품 박스
 
 - Cube 오브젝트로 생성
@@ -625,10 +595,7 @@ public class BoxSpawner : MonoBehaviour {
 
 #### 실행결과
 
-
-
-https://github.com/user-attachments/assets/33658be9-7855-4d7f-9c2f-262c36db39e9
-
+https://github.com/user-attachments/assets/33c491e5-cb2b-4611-976e-b5caecdde8ee
 
 #### 컨베이어 벨트 여러개 구성
 
@@ -636,66 +603,84 @@ https://github.com/user-attachments/assets/33658be9-7855-4d7f-9c2f-262c36db39e9
 
 #### 컨베이어 벨트 멈추기 기능
 
-- Conveyorb
+- ConveyorBelt.cs 오픈
+- 로직 변경
+
+```cs
+using UnityEngine;
+
+public class ConveyorBelt : MonoBehaviour {
+    ...
+    [Header("벨트 동작여부")]
+    public bool isRunning = true;
+    
+    private void OnCollisionStay(Collision collision) {
+        Rigidbody rb = collision.rigidbody;
+
+        if (rb == null) return; 
+        if (!isRunning) {
+            rb.linearVelocity = Vector3.zero; // 0으로 초기화
+            return;
+        }
+
+        rb.linearVelocity = moveDirection.normalized * speed;
+    }
+
+    public void Stop() {
+        isRunning = false;  // 중지
+    }
+
+    public void StartBelt() {
+        isRunning = true;  // 재시작
+    }
+}
+```
+
+- 벨트 동작여부 체크 확인
 
 ![alt text](image-103.png)
 
-- 컨베이어 끝에 센서가 있다고가정. Collider 트리거 발생하면 멈춤가능
+- 컨베이어 끝에 센서가 있다고 가정. Collider 트리거 발생하면 멈춤기능
 - 빈 오브젝트 생성 > `Sensor` 명명
-- Sensor 오브젝트 > 
+- Sensor 오브젝트 > `Box Collider` 컴포넌트 추가. `Is Trigger` 체크
+- `Edit Collider` 아이콘 클릭 위치, 크기 조정
 
 ![alt text](image-104.png)
 
 - SensorTrigger.cs 스크립트 생성
 
-```c#
-using UnityEngine;
-
-public class SensorTrigger : MonoBehaviour
-{
+```cs
+public class SensorTrigger : MonoBehaviour {
     // 다른 Collider가 들어와서 Trigger 발생하면?
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log("제품감지!");
+    private void OnTriggerEnter(Collider other) {
+        Debug.Log("제품 감지!");
     }
 }
-
 ```
-
 - Sensor 객체에 스크립트 추가
 - 콘솔로 변경, 실행
 
-- SensorTrigger.cs 스크립트 재수정
+- SensorTrigger.cs 스크립트 재 수정
 
 ```cs
-public class SensorTrigger : MonoBehaviour
-{
+public class SensorTrigger : MonoBehaviour {
     [Header("컨베이어 1")]
     public ConveyorBelt conveyor1;
-
     [Header("컨베이어 2")]
     public ConveyorBelt conveyor2;
-
     private bool isProcessing = false;
-
-    // 다른 Collider가 들어와서 Trigger 발생하면?
-    private void OnTriggerEnter(Collider other)
-    {
+    
+    private void OnTriggerEnter(Collider other) {
         if (isProcessing) return;
-
-        if (other.CompareTag("Product"))
-        {
+        if (other.CompareTag("Product")) {
             // 시간이 걸리는 작업을 여러 프레임에 나눠서 실행하는 기능
             StartCoroutine(Process());
         }
     }
 
-    private IEnumerator Process()
-    {
+    private IEnumerator Process() {
         isProcessing = true;
-
         Debug.Log("제품 감지!");
-
         conveyor1.Stop();  // isRunning = false;
         conveyor2.Stop();
 
@@ -709,43 +694,119 @@ public class SensorTrigger : MonoBehaviour
         isProcessing = false;
     }
 }
-
 ```
-- Convetorbelt
+
+- ConveyorBelt 컨베이어 1번 변수에 Collider 지정된 벨트 객체 할당
+- ConveyorBelt 컨베이어 2번 변수에 Collider 지정된 벨트 객체 할당
+
+![alt text](image-106.png)
+
+- Product 프리팹에 `Product` 태그 생성 지정
 
 ![alt text](image-105.png)
-![alt text](image-117.png)
-![alt text](image-118.png)
-![alt text](image-119.png)
-![alt text](image-120.png)
-![alt text](image-121.png)
-https://www.youtube.com/watch?v=Hsw9KDcOBOw
+
 #### 벨트 동작화면
 
 - mp4 등록예정
-
 
 #### 컨베이어, 스폰 기능 동기화
 
 - TODO
 
+
 ---
 
-### 2.4. ProBuilder
+### 2.4. ProBuilder 
 
 #### 개요
 
-Unity에서 건물을 손쉽게 만들 수 있도록 도와주는 패키지
+- Unity에서 건물이나 여러 오브젝트를 손쉽게 만들 수 있도록 도와주는 패키지
+- 3D 모델링 기능이 없는 Unity를 Blener처럼 모델링할 수 있도록 지원
+- Blender 만큼 강력하지는 않음
 
 #### 설치
 
-- Window > Package Manager > Unity Regustry에서 `ProBuilder` 검색 후 설치
+- Windows > Package Manager > Unity Registry에서 `ProBuilder` 검색 후 설치
 
 ![alt text](image-107.png)
-![alt text](image-106.png)
+
+#### 사용법
+
+- 메뉴 Tools > ProBuilder > Create Shape > 오브젝트 선택
+
+![alt text](image-108.png)
+
+- Heirarchy 창 > 마우스 오른쪽 > ProBuilder > 오브젝트 선택
+
+- 프로빌더로 생성한 오브젝트 선택 후
+- Scene 뷰 툴바 > ProBuilder 선택
+
+![alt text](image-109.png)
+
+- 상단 툴바에 프로필더 아이콘 버튼 추가
+
+![alt text](image-110.png)
+
+- Cube 상태에서...
+- Vertex Selection(점 선택), Edge Selection(선 선택), Face Selection(면 선택)
+- Move, Rotate, Scale 기능으로 오브젝트 Shape를 변형
+
+![alt text](image-111.png)
+
+- 3D 모델링툴 Blender와 유사한 기능
+
+#### Tip
+
+- 바닥 오브젝트(Plane)와 다른 오브젝트(Cube 등)를 공간없이 
+    - Cube에서 V 키 누른 상태에서 위치이동
+
+![alt text](image-112.png)
+
+#### 오브젝트 변형법
+
+- Probuilder 큐브 생성
+- 변형툴바 Probuilder 선택
+- Face Selection 클릭, 앞쪽세로면 선택 Move 기능으로 확장
+
+![alt text](image-113.png)
+
+- Edge Selection 클릭, 왼쪽상단 선 선택 Move 기능으로 축소
+
+![alt text](image-114.png)
+
+- Face.. 클릭 반대편 면 클릭, Context Menu > Extrude Faces 클릭
+
 ![alt text](image-115.png)
 
-####
+![alt text](image-116.png)
+
+- Move, Rotate, Scale 사용 - 모양을 변형
+- Face.. 클릭, Cube 상단 클릭
+- Shift 누른 상태에서 Scale 조정
+
+![alt text](image-117.png)
+
+- Context Menu > Extrude Faces 클릭
+
+![alt text](image-118.png)
+
+- Edge... 클릭. 최상후면 선 클릭 > Bezel Edge 선택
+
+![alt text](image-119.png)
+
+- Edge를 여러개 선택 > Bezel Edge 선택
+
+![alt text](image-120.png)
+
+![alt text](image-121.png)
+
+- 바닥에서 1번 마우스 드래그드롭으로 x, z 넓이 생성, 2번 드래그드롭으로 y 높이 생성
+
+![alt text](image-122.png)
+
+#### 프로빌더 연습
+
+
 
 ### 2.3. Unity Factory
 
