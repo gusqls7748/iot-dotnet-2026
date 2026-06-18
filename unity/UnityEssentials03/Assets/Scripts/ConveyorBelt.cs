@@ -1,0 +1,39 @@
+using UnityEngine; // 유니티 엔진 클래스
+
+// MonoBehaviour C# 스크립트가 기본적으로 상속받는 핵심 클래스
+// 개발자코드가 유니티 엔진과 인터렉티브하게 소통할 수 있도록
+// 오브젝트에 컴포넌트로 연결, 동작 제어
+
+public class ConveyorBelt : MonoBehaviour
+{
+
+    [Header("물체이동 방향")]
+    public Vector3 moveDirection = Vector3.right;
+
+    [Header("")]
+    public float speed = 2.0f;
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+
+    // 매 프레임 두 충돌영역이 접촉하고 있는 동안 발생 이벤트 핸들러
+    private void OnCollisionStay(Collision collision)
+    {
+        Rigidbody rb = collision.rigidbody; // 충돌 감지된 오브젝트 리지드바디 가져오기
+
+        if (rb != null)
+        {
+            rb.linearVelocity = moveDirection.normalized * speed; // 이동방향으로 속도만큼 이동
+        }
+    }
+}
