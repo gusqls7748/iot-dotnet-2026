@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class BoxSpawner : MonoBehaviour
 {
+    private bool isRunning = true;
+
     [Header("프리팹 지정")]
     public GameObject prePrefab;
 
@@ -32,5 +34,15 @@ public class BoxSpawner : MonoBehaviour
                         Quaternion.identity);
 
         }
+    }
+
+    public void Stop()
+    {
+        isRunning = false;
+    }
+
+    public void StartSpawner()
+    {
+        isRunning = true;
     }
 }

@@ -707,14 +707,72 @@ public class SensorTrigger : MonoBehaviour {
 
 #### 벨트 동작화면
 
-https://github.com/user-attachments/assets/551d526f-1217-4202-900f-abfdb7df3709
-
-
+https://github.com/user-attachments/assets/c232dd7f-d635-413a-83e9-4077c8002f4a
 
 #### 컨베이어, 스폰 기능 동기화
 
-- TODO
+- 센서가 감지되면 Conveyor와 Spawner를 같이 중지
+- BoxSpawner.cs 수정, isRunning 추가
 
+```cs
+private bool isRunning = true;
+
+void Update() {
+    if (!isRunning) return;  // isRunning이 false면 아래 로직 실행안함
+    timer += Time.deltaTime;   // HW 성능별 FPS 고정
+
+    if (timer >= interval) {
+        timer = 0;
+        Instantiate(prdPrefab,
+                    transform.position,
+                    Quaternion.identity);
+    }
+}
+
+public void Stop() {
+    isRunning = false;
+}
+
+public void StartSpawner() {
+    isRunning = true;
+} 
+```
+
+- SensorTrigger.cs 수정, BoxSpawner 변수 추가
+
+```cs
+...
+[Header("박스생성기")]
+public BoxSpawner spawner;
+
+...
+
+private IEnumerator Process() {
+    isProcessing = true;
+
+    Debug.Log("제품 감지 - 컨베이어/스폰 중지");
+    conveyor1.Stop();
+    conveyor2.Stop();
+    spawner.Stop(); // 스포너 중지 추가
+
+    yield return new WaitForSeconds(3.0f);
+
+    conveyor1.StartBelt();
+    conveyor2.StartBelt();
+    spawner.StartSpawner(); // 스포너 시작 추가
+    Debug.Log("컨베이어/스폰 재시작");
+
+    yield return new WaitForSeconds(1.0f); 
+
+    isProcessing = false;
+}
+```
+
+![alt text](image-133.png)
+
+#### 최종 실행결과
+
+https://github.com/user-attachments/assets/85e158e2-e7bc-4922-9ede-eeb609d1b39a
 
 ---
 
@@ -788,7 +846,7 @@ https://github.com/user-attachments/assets/551d526f-1217-4202-900f-abfdb7df3709
 
 ![alt text](image-117.png)
 
-- Context Menu > Extrude Faces 클릭
+- Context Menu > `Extrude Faces` 클릭
 
 ![alt text](image-118.png)
 
@@ -806,11 +864,65 @@ https://github.com/user-attachments/assets/551d526f-1217-4202-900f-abfdb7df3709
 
 ![alt text](image-122.png)
 
-#### 프로빌더 연습
+#### 큐브형태 벽 생성
+
+- 기존 큐브 > Face 선택 > Scale 선택
+- Shift 누른 상태에서 크기조정
+
+![alt text](image-123.png)
+
+- 원본 면 크기보다 작게 조정가능
+- Move 선택
+- Shift 누른 상태에서 위치이동
+
+![alt text](image-124.png)
+
+- 반복작업, 벽 생성
+
+#### 문, 창문 만들기
+
+- 직교기준 Edge 선택 > Context Menu > Insert Edge Loop 클릭
+
+![alt text](image-125.png)
+
+- 창문, 문 위치 Face 선택 > Move 선택, 창문/문 내려는 방향으로
+- Shift 누른 상태에서 이동
+
+![alt text](image-126.png)
+
+- Context Menu > Delete Face 선택
+- 반대편 면에서도 Delete Face 선택
+
+![alt text](image-127.png)
+
+#### 재질 적용
+
+- Asset Store Web > Material 검색 > 애셋 추가
+- Unity Editor Import
+
+- Tools > ProBuilder > Editors > Material Editor 클릭
+
+![alt text](image-128.png)
+
+#### Material 렌더링 문제
+
+![alt text](image-129.png)
+
+- Window > Rendering > Render Pipeline Converter 선택
+- Scan
+
+![alt text](image-130.png)
+
+- Convert Assets 버튼 클릭
+
+![alt text](image-132.png)
 
 
+![alt text](image-131.png)
 
-### 2.3. Unity Factory
+---
+
+### 2.3. Unity Factory HDRP
 
 - Unity Technologies Japan에서 제공하는 무료 HDRP 공장 시뮬레이션 에셋
 - 공장건물부터 컨베이어라인, 로봇팔, 작업자, 조명...
@@ -836,3 +948,66 @@ https://github.com/user-attachments/assets/551d526f-1217-4202-900f-abfdb7df3709
 - Global Volume 오브젝트, 사용체크 비활성화
 
 ![alt text](image-75.png)
+
+- 기존 Scene을 다른이름으로 재저장
+- 계층창 오브젝트를 확인하면서 삭제
+
+![alt text](image-138.png)
+
+#### Spline 애니메이션 기능
+
+- 컨베이어 위 생산품 움직임, 작업자 이동 기능
+- 설치한 Splines 기능 사용
+- Hierarchy 창 > Create > Spline > 하위메뉴 선택
+
+![alt text](image-139.png)
+
+- 움직일 오브젝트 선택 > Add Component > Spline Animate 추가
+- Spline 속성 > 적용한 Spline 지정
+- Movement Method Time Duration 변경
+
+https://github.com/user-attachments/assets/8805de0b-a617-4fc5-939c-fb3e14c67de6
+
+#### Product Spline 애니메이션
+
+- TODO : 
+- 컨베이어 위 생산품 동작 기능
+- 컨베이어 생산라인 매핑되는 Spline 생성
+- 이동 후 로봇팔 챔버에 도착하면 동작 멈춤
+- 일정시간 로봇팔 애니메이션 발생
+- 생산품 Spline 위로 이동
+- CustomSplineAnimate.cs 확인 필요
+
+### 2.4. IoT Sample Project 
+
+- IoT Sample Project 애셋
+
+![alt text](image-140.png)
+
+
+### 2.9. Unity Factory 컨버전
+
+- TODO : 
+- Unity Factory HDRP버전, URP 지원안함
+- URP 프로젝트 생성, Unity Factory 에셋 Import 
+
+![alt text](image-134.png)
+
+- Package Manager > `Universal Render Pipeline' 검색 후 설치
+
+![alt text](image-135.png)
+
+- URP Asset 생성
+- 프로젝트창 > Create > Rendering > URP Asset (with...) 선택
+
+- Edit > Project Settings > Graphics > Default Render Pipeline 값을 HDRP 종류에서 위에서 생성한 URP 에셋으로 변경
+
+![alt text](image-136.png)
+
+- Edit > Project Settings > Quality > Render Pipelin Asset을 URD로 변경
+
+![alt text](image-137.png)
+
+- 머티리얼 변환
+
+- Window > Rendering > Reder Pipeline Converter 선택

@@ -2,35 +2,34 @@ using UnityEngine;
 
 public class DayNightCycle : MonoBehaviour
 {
-    [Header("Directional Light")]
-    public Light sun;
+    [Header("회전 속도 설정")]
+    public float rotationSpeed = 1f;
 
-    [Header("Cycle Settings")]
-    [Tooltip("낮→밤→낮 한 바퀴 도는 시간(초)")]
-    public float cycleDuration = 20f;
+    [Header("시간 설정")]
+    [Tooltip("하루(24시간)가 지나는데 걸리는 실제 시간(초)")]
+    public float dayDuration = 60f;
 
-    private float currentTime;
+    private float timePassed = 0.0f;
 
-    private void Update()
+    void Start()
     {
-        if (sun == null) return;
+        rotationSpeed = Mathf.Abs(rotationSpeed);
+    }
 
-        // 시간 증가
-        currentTime += Time.deltaTime;
+    void Update()
+    {
+        float angleToRotate =
+            (360.0f / dayDuration) * Time.deltaTime;
 
-        // 0 ~ 1 반복
-        float normalizedTime = (currentTime % cycleDuration) / cycleDuration;
+        transform.Rotate(
+            Vector3.right,
+            angleToRotate * rotationSpeed);
 
-        // 0 ~ 360도 회전
-        float sunAngle = normalizedTime * 360f;
+        timePassed += Time.deltaTime;
 
-        transform.rotation = Quaternion.Euler(sunAngle - 90f, 170f, 0f);
-
-        // 빛 세기 조절
-        float intensity = Mathf.Clamp01(
-            Mathf.Cos((normalizedTime - 0.25f) * Mathf.PI * 2f)
-        );
-
-        sun.intensity = intensity;
+        if (timePassed >= dayDuration)
+        {
+            timePassed = 0.0f;
+        }
     }
 }

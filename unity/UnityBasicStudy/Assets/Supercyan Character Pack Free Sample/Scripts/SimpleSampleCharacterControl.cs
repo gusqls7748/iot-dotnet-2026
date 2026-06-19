@@ -18,7 +18,7 @@ namespace Supercyan.FreeSample
         }
 
         [SerializeField] private float m_moveSpeed = 2;
-        [SerializeField] private float m_turnSpeed = 200;
+        [SerializeField] private float m_turnSpeed = 0.02f;
         [SerializeField] private float m_jumpForce = 4;
 
         [SerializeField] private Animator m_animator = null;
@@ -29,7 +29,7 @@ namespace Supercyan.FreeSample
         private float m_currentV = 0;
         private float m_currentH = 0;
 
-        private readonly float m_interpolation = 10;
+        private readonly float m_interpolation = 2;
         private readonly float m_walkScale = 0.33f;
         private readonly float m_backwardsWalkScale = 0.16f;
         private readonly float m_backwardRunScale = 0.66f;
@@ -197,7 +197,7 @@ namespace Supercyan.FreeSample
                 m_animator.SetFloat("MoveSpeed", direction.magnitude);
             }
 
-            JumpingAndLanding();
+            //JumpingAndLanding();
         }
 
         private void JumpingAndLanding()

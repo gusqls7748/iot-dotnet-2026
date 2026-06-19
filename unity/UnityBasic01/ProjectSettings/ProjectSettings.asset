@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 28
-  productGUID: 0172d2456a24b6f4bab779d17318bdfa
+  productGUID: a623d16d613098549b5e8448f5c43855
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -942,11 +942,11 @@ PlayerSettings:
   activeInputHandler: 1
   windowsGamepadBackendHint: 0
   enableDirectStorage: 0
-  cloudProjectId: aeeea3b8-f50b-4da3-a605-5a8002c24b51
+  cloudProjectId: b3a22253-6415-4ee0-914a-618d4e95124f
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
   projectName: UnityBasic01
-  organizationId: gusqls7748-naver-com
+  organizationId: personar95mpcjr802
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}

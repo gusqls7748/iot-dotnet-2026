@@ -220,6 +220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SensorTrigger
   conveyor1: {fileID: 1463666150}
   conveyor2: {fileID: 1425757143}
+  spawner: {fileID: 1142479072}
 --- !u!65 &136771547
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -342,13 +343,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.33000228, y: 0.62998927, z: -0.33654103, w: 0.61721325}
-  m_LocalPosition: {x: -6.9072256, y: 7.5788193, z: -0.2982984}
+  m_LocalRotation: {x: 0.060316935, y: -0.9324886, z: 0.18445913, w: 0.30463383}
+  m_LocalPosition: {x: 0.5524297, y: 3.2759705, z: 4.749112}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -564.631, y: -15.265991, z: -342.926}
+  m_LocalEulerAnglesHint: {x: 10, y: 10, z: 10}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0

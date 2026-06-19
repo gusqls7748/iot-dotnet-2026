@@ -1,33 +1,25 @@
 using UnityEngine;
 
-// 파일 이름이 DoorOpener.cs라면 클래스 이름도 DoorOpener여야 합니다.
+
 public class DoorOpener : MonoBehaviour
 {
-    [Header("회전 속도 설정")]
-    public float rotationSpeed = 1f;
-
-    [Header("시간 설정")]
-    [Tooltip("하루(24시간)가 지나는데 걸리는 실제 시간(초)")]
-    public float dayDuration = 60f;
-
-    private float timePassed = 0.0f;
+    private Animator doorAnimator;
 
     void Start()
     {
-        rotationSpeed = Mathf.Abs(rotationSpeed);
+        // 현재 오브젝트에 할당된 애니메이터를 가져올 것
+        doorAnimator = GetComponent<Animator>();
     }
 
-    void Update()
-    {
-        float angleToRotate = (360.0f / dayDuration) * Time.deltaTime;
-
-        transform.Rotate(Vector3.right, angleToRotate * rotationSpeed);
-
-        timePassed += Time.deltaTime;
-
-        if (timePassed >= dayDuration)
+    private void OnTriggerEnter(Collider other)
+    {        
+        if (other.CompareTag("Player")) // 게임오브젝트 중 Player라는 태그를 가지고 있는 객체에 
         {
-            timePassed = 0.0f;
+            if (doorAnimator != null)
+            {
+                // Door_Open 애니메이션을 실행하라
+                doorAnimator.SetTrigger("Door_Open");
+            }
         }
     }
 }
