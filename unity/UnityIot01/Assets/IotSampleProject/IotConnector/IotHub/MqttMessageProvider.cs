@@ -16,17 +16,19 @@ namespace IndustryCSE.IoT
     /// Use await messageProvider.SetModeAsync(false) to initialize in MQTT mode
     /// Use await messageProvider.SetModeAsync(true) to switch to simulation mode at runtime
     /// Use await messageProvider.SetModeAsync(false) to switch back to MQTT mode
+    /// IoT 메시지를 MQTT 브로커에서 받거나, 시뮬레이션모드에서 더미데이터 처리하는 기능의 클래스
     /// </summary>
     public class MqttMessageProvider : BaseMessageProvider
     {
+        // MQTT 브로커 접속정보( Inspecto애서 설렁)
         [SerializeField] private string _mqttBrokerEndpoint = "<YOUR_MQTT_BROKER_ADDRESS>";
         [SerializeField] private int _mqttBrokerPort = 1883;
         [SerializeField] private string _mqttSubTopic = "<YOUR_MQTT_Subscription_Topic>";
         [SerializeField] private string _mqttUserName = "<YOUR_MQTT_User_Name>";
         [SerializeField] private string _mqttPassword = "<YOUR_MQTT_Password>";
-
         [SerializeField] private bool _secured = true;
-
+        
+        // TLS 보안여부
         private MqttClient _mqttClient;
         private string _clientId;
         private bool _isConnected;
@@ -34,24 +36,24 @@ namespace IndustryCSE.IoT
         /// <summary>
         /// Switches between MQTT connection and simulated events dynamically.
         /// </summary>
-        /// <param name="useSimulatedEvents">True to use simulated events; False to use MQTT.</param>
+        /// <param name="useSimulatedEvents"> 참이면 시뮬레이션 모드, 거짓이면 MQTT 수신모드</param>
         public override async Task SetModeAsync(bool useSimulatedEvents)
         {
             _simulateEvents = useSimulatedEvents;
 
             if (_simulateEvents)
             {
-                Debug.Log("Switching to Simulated Events mode...");
+                Debug.Log("시뮬레이션 시작...");
 
-                // Disconnect MQTT if active
+                // MQTT 연결 해제
                 DisconnectClient();
 
-                // Register simulated device message callback
+                // 시뷸레이션 메시지 콜백 이벤트 ㅇㅇ록
                 _deviceSimulator.OnDeviceMessage += ReadSimulatedMessage;
             }
             else
             {
-                Debug.Log("Switching to MQTT mode...");
+                Debug.Log("MQTT 모드로 전환...");
 
                 // Disable simulated events
                 _deviceSimulator.OnDeviceMessage -= ReadSimulatedMessage;
@@ -68,12 +70,12 @@ namespace IndustryCSE.IoT
         {
             if (_simulateEvents)
             {
-                Debug.Log("Initializing in Simulated Events mode...");
+                Debug.Log("시뮬레이션 모드 초기화...");
                 _deviceSimulator.OnDeviceMessage += ReadSimulatedMessage;
                 return;
             }
 
-            Debug.Log("Initializing in MQTT mode...");
+            Debug.Log("MQTT 모드 초기화...");
             await InitializeMqttClientAsync();
         }
 
@@ -93,7 +95,7 @@ namespace IndustryCSE.IoT
                 // Register event for receiving messages
                 _mqttClient.MqttMsgPublishReceived += OnMqttMsgPublishReceived;
 
-                Debug.Log("Connecting to MQTT broker...");
+                Debug.Log("MQTT 브로커 연결 중...");
 
                 Task connectTask = Task.Run(() => _mqttClient.Connect(_clientId, _mqttUserName, _mqttPassword));
                 await connectTask;
@@ -102,11 +104,11 @@ namespace IndustryCSE.IoT
                 {
                     _isConnected = true;
                     SubscribeToTopic(_mqttSubTopic);
-                    Debug.Log("MQTT Client Connected");
+                    Debug.Log("MQTT 클라이언트 연결 상공");
                 }
                 else
                 {
-                    Debug.LogError("Failed to connect to the MQTT broker.");
+                    Debug.LogError("MqTT 에러 기록");
                 }
             }
             catch (SocketException se)

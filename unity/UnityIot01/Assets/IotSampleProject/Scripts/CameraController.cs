@@ -6,12 +6,16 @@ using UnityEngine.UIElements;
 
 public class CameraController : MonoBehaviour
 {
+    // 카메라를 바라볼 대상
     public Transform target;
 
+    // 카메라와 대상사이 거리 5 ~ 60
     public float distance = 5.0f;
+    // 줌속도
     public float zoomSpeed = 4f;
     public float minZoom = 5f;
     public float maxZoom = 15f;
+    // x,y 축 회전 속도
     public float xSpeed = 120.0f;
     public float ySpeed = 120.0f;
     public float yMinLimit = -20f;
