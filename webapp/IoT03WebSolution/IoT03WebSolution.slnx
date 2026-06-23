@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="DoNet12BooksApi/DoNet12BooksApi.csproj" Id="be36238a-a052-4fc0-b037-0ac60a35334c" />
+  <Project Path="DotNet11WebApp/DotNet11WebApp.csproj" />
+</Solution>

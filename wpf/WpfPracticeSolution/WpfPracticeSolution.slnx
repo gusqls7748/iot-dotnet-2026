@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="WpfBusanFestivalApp/WpfBusanFestivalApp.csproj" Id="0c7627f1-216d-4864-809c-b424a59a190f" />
+  <Project Path="WpfCafeKiosk/WpfCafeKiosk.csproj" />
+  <Project Path="WpfSmartHomeSensingApp/WpfSmartHomeSensingApp.csproj" Id="c10e6340-b504-480d-9ed3-ac9f8c17dfe4" />
+  <Project Path="WpfSmartHomeSubscribeApp/WpfSmartHomeSubscribeApp.csproj" />
+</Solution>
