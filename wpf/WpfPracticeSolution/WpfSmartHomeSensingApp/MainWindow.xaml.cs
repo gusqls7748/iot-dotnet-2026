@@ -35,8 +35,8 @@ namespace WpfSmartHomeSensingApp
         private IMqttClient? MqttClient { get; set; }
         private string MqttHost { get; set; } = "127.0.0.1";    // TxtMqttBrokerIp 텍스트박스의 IP로 변경되어야 함
         private int MqttPort { get; set; } = 1883;
-        private string MqttUser { get; set; } = ""; //"root";
-        private string MqttPassword { get; set; } = ""; //"mqtt123456";
+        private string MqttUser { get; set; } = "root";
+        private string MqttPassword { get; set; } = "mqtt123456";
         private string MqttTopic { get; set; } = "home/sensor";
 
         #endregion
