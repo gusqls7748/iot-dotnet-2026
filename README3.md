@@ -1106,7 +1106,12 @@ https://github.com/user-attachments/assets/8805de0b-a617-4fc5-939c-fb3e14c67de6
 
 ![alt text](image-153.png)
 
-#### MQTT 패키지 불러오기
+#### 한글폰트 설정
+
+<!-- 문서내 링크 -->
+[전체분석내 폰트설정](#전체-분석)
+
+#### NuGet 패키지 불러오기
 
 - Github 에서 [NuGetForUnity](https://github.com/GlitchEnzo/NuGetForUnity) 설치
 
@@ -1115,13 +1120,48 @@ https://github.com/user-attachments/assets/8805de0b-a617-4fc5-939c-fb3e14c67de6
 - MQTTnet 은 DLL을 직접 가져와서 구성. MQTTnet 버전 충돌
 - MQTT for Unity(M2Mqtt)를 사용
 
-![alt text](image-155.png)
+#### M2MqttUnity 설치
+
+- M2Mqtt를 유니티 스크립트로 재정의해서 Unity에서 사용할 수 있게 만든 버전
+- https://github.com/gpvigano/M2MqttUnity Code zip으로 다운로드
+- 압축해제 후 
+- Project 창 Assets에 M2MqttUnity 압축해제한 Assets 폴더 복사
+- Unity에서 컴파일 진행
+
+- 테스트 
+
+![alt text](image-156.png)
+
+- MQTT Publish 메시지 확인
+
+![alt text](image-157.png)
+
+#### Unity MQTT Subscribe 메시지 수신
+
+- Canvas UI와 TextMeshPro, Image 등으로 화면 구성
+
+![alt text](image-158.png)
+
+- SmartHomeMqttClient.cs 작성
+- 빈 객체 생성 > MqttClient 명명
+- 위 스크립트 컴포넌트 지정
+- Inspector에서 필요 데이터 입력, Broker Address, User Name, Password
+    - TOPIC, 상태표시 TextMesh Pro, JSON 데이터 출력 TextMesh Pro 지정
+
+![alt text](image-159.png)
+
+- IoT Sample Project 애셋에서 CameraController.cs 가져오기
+
+- Essentials Pathway 애셋에서 SkyBox 머티리얼 가져와서 적용
+
+#### 전체 실행결과
 
 
 
 ### 2.9. Unity Factory 컨버전
 
-- TODO : 
+- 결론 URP를 지원하는 HDRP 애셋 사용이나
+- URP 머티리얼을 새로 만드는 것을 권장
 - Unity Factory HDRP버전, URP 지원안함
 - URP 프로젝트 생성, Unity Factory 에셋 Import 
 
