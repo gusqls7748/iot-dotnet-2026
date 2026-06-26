@@ -1,22 +1,13 @@
 ﻿namespace ProductApi.Models
 {
+    using System.Text.Json.Serialization; // 이 네임스페이스가 필요합니다
+
     public class Product
     {
-        /*
-         * product_id INT NOT NULL AUTO_INCREMENT Primary Key,
-            product_name VARCHAR(100) NOT NULL,
-            category VARCHAR(50) NULL,
-            price DECIMAL(10,0) NOT NULL,
-            stock INT NOT NULL,
-            created_at DATETIME 
-         *
-         */
-
         public int ProductId { get; set; }
-        public string ProductName { get; set; } = string.Empty; // "" 입력 가능
+        public string ProductName { get; set; }
         public string Category { get; set; }
         public decimal Price { get; set; }
-
         public int Stock { get; set; }
         public DateTime CreateAt { get; set; }
     }
