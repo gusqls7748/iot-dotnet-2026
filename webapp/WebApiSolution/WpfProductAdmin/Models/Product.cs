@@ -1,26 +1,26 @@
 ﻿using System;
-using System.Text.Json.Serialization;
+using System.Collections.Generic;
+using System.Text;
 
 namespace WpfProductAdmin.Models
 {
     public class Product
     {
-        [JsonPropertyName("productId")]
+        /*
+         *  product_id INT NOT NULL AUTO_INCREMENT Primary Key,
+            product_name VARCHAR(100) NOT NULL,
+            category VARCHAR(50) NULL,
+            price DECIMAL(10,0) NOT NULL,
+            stock INT NOT NULL,
+            created_at DATETIME
+         */
         public int ProductId { get; set; }
-
-        [JsonPropertyName("productName")]
         public string ProductName { get; set; }
 
-        [JsonPropertyName("category")]
+        // ? nullable
         public string? Category { get; set; }
-
-        [JsonPropertyName("price")]
         public decimal Price { get; set; }
-
-        [JsonPropertyName("stock")]
         public int Stock { get; set; }
-
-        [JsonPropertyName("createAt")] // <--- 핵심: JSON의 'createAt'과 매핑
         public DateTime CreatedAt { get; set; }
     }
 }

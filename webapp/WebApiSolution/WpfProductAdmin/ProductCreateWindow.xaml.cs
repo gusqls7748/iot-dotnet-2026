@@ -1,15 +1,6 @@
 ﻿using MahApps.Metro.Controls;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using MahApps.Metro.Controls.Dialogs;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using WpfProductAdmin.Models;
 using WpfProductAdmin.Services;
 
@@ -31,25 +22,61 @@ namespace WpfProductAdmin
 
         private async void BtnSave_Click(object sender, RoutedEventArgs e)
         {
+
+            // Validation Check
+            if (string.IsNullOrEmpty(TxtProductName.Text.Trim()))
+            {
+                await this.ShowMessageAsync("입력오류", "상품명을 입력하세요.");
+                // TxtProductName.Focus(); // 상품명 입력창에 포커스
+                return;
+            }
+
+            if (string.IsNullOrEmpty(TxtCategory.Text.Trim()))
+            {
+                await this.ShowMessageAsync("입력오류", "카테고리를 입력하세요.");
+                return;
+            }
+
+            if (!Decimal.TryParse(NudPrice.Value.ToString(), out decimal price))
+            {
+                await this.ShowMessageAsync("입력오류", "가격은 숫자로 입력하세요.");
+                return;
+            }
+
+            if (Convert.ToDecimal(NudPrice.Value) <= 0)
+            {
+                await this.ShowMessageAsync("입력오류", "가격은 1000원 이상 입력하세요.");
+                return;
+            }
+
+            if (!int.TryParse(NudStock.Value.ToString(), out int stock))
+            {
+                await this.ShowMessageAsync("입력오류", "재고는 숫자로 입력하세요.");
+                return;
+            }
+
+            // 모델 생성
             Product product = new Product
             {
                 ProductName = TxtProductName.Text.Trim(),
                 Category = TxtCategory.Text.Trim(),
-                Price = Convert.ToDecimal(NudPrice.Value),
-                Stock = Convert.ToInt32(NudStock.Value)
+                Price = price,
+                Stock = stock
             };
 
-            bool result = await service.PostProductAsync(product);  // 서비스에 메서드 추가
+            // 서비스 호출 (오류 확인을 위해 디버깅 코드 추가)
+            bool result = await service.PostProductAsync(product);
 
             if (result)
             {
-                MessageBox.Show("상품이 등록되었습니다.");
-                DialogResult = true;
-                Close();
+                await this.ShowMessageAsync("성공", "상품이 등록되었습니다.");
+                this.DialogResult = true;
+                this.Close();
             }
             else
             {
-                MessageBox.Show("상품 등록이 실패했습니다.");
+                // 메시지만 띄우지 말고 상세 에러를 확인해야 합니다.
+                await this.ShowMessageAsync("등록실패", "서버가 요청을 거부했습니다. API 설정을 확인하세요.");
             }
         }
 

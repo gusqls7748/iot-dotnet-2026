@@ -55,7 +55,7 @@
                     <td>${product.category ?? ""}</td>
                     <td>${Number(product.price).toLocaleString()}원</td>
                     <td>${product.stock}</td>
-                    <td>${product.createdAt}</td>
+                    <td>${new Date(product.createdAt).toLocaleDateString('sv-SE')}</td>
                     <td>
                         <button class="btn btn-sm btn-warning">수정</button>
                         <button class="btn btn-sm btn-danger">삭제</button>
@@ -65,10 +65,12 @@
         });
     }
 
-    loadProducts();
+    // loadProducts();
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
 </body>
 </html>
+
+
