@@ -16,13 +16,8 @@ public class ProductRowUi : MonoBehaviour
         txtProductId.text = product.productId.ToString();
         txtProductName.text = product.productName;
         txtCategory.text = product.category;
-        txtPrice.text = $"{product.Price:NO}원";
-        txtStock.text = $"{product.Stock:NO}";
-        txtCreatedAt.text = product.createdAt.ToString();
-    }
-
-    internal void SetData(object product)
-    {
-        throw new NotImplementedException();
+        txtPrice.text = $"{product.price:N0}원";
+        txtStock.text = $"{product.stock:N0}";
+        txtCreatedAt.text = product.createdAt.ToShortDateString();
     }
 }

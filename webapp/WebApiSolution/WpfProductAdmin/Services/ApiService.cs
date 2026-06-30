@@ -13,7 +13,9 @@ namespace WpfProductAdmin.Services
     {
         private readonly HttpClient client = new HttpClient();
 
-        private readonly string serviceUrl = "http://localhost:5179/api/products";
+        //private readonly string serviceUrl = "http://localhost:5179/api/products"; // 최초 개발용 API
+        private readonly string serviceUrl = "http://192.168.0.3:8080/api/products";  // 도커 배포 API
+
 
         // 전체 조회 GET http://localhost:5276/api/products
         public async Task<ObservableCollection<Product>> GetProductsAsync()

@@ -13,7 +13,9 @@ public class ProductApiClient : MonoBehaviour
     //private TMP_Text txtLog;
 
     [SerializeField]
-    private string serviceUrl = "http://localhost:5179/api/products";
+    //private string serviceUrl = "http://localhost:5179/api/products"; // 개발용 API 주소
+    private string serviceUrl = "http://192.168.0.3:8080/api/products"; // 도커 API 주소
+
 
     [SerializeField]
     private Transform content;
@@ -45,7 +47,7 @@ public class ProductApiClient : MonoBehaviour
 
         foreach (Product item in products)
         {
-            Debug.Log($"{item.productId}/{item.productName}/{item.Price}/{item.Stock}");
+            Debug.Log($"{item.productId}/{item.productName}/{item.price}/{item.createdAt}");
 
             // 1. 유니티 내장 Instantiate 사용
             ProductRowUi row = Instantiate(productRowPrefab, content);

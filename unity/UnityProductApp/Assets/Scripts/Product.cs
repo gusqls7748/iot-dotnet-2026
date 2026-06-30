@@ -12,12 +12,12 @@ public class Product
         stock INT NOT NULL,
         created_at DATETIME
      */
-    public int productId { get; set; }
-    public string productName { get; set; }
+    public int productId;
+    public string productName;
 
     // ? nullable
-    public string category { get; set; }
-    public decimal Price { get; set; }
-    public int Stock { get; set; }
-    public DateTime createdAt { get; set; }
+    public string category;
+    public decimal price;
+    public int stock;
+    public DateTime createdAt;
 }

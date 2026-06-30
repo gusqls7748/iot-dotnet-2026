@@ -1,4 +1,7 @@
 <Solution>
+  <Project Path="docker-compose.dcproj">
+    <Build />
+  </Project>
   <Project Path="ProductApi/ProductApi.csproj" />
   <Project Path="WpfProductAdmin/WpfProductAdmin.csproj" Id="dbd0007e-f5b2-46d7-88dd-516237c369ff" />
 </Solution>

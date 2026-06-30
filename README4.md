@@ -997,11 +997,12 @@ public class ProductApiClient : MonoBehaviour {
 - ProductRow 프리팹 오픈
 - Add Component > Layout Element 추가
 - Min Height, Preferred Height 36 지정
-- Flexibl Height 0 지정
+- Flexible Height 0 지정
 
 - View port > cotent 클릭
 
-![alt text](image-227.png)
+<img src="./image-227.png" width="300">
+
 
 #### 실행결과
 
@@ -1015,24 +1016,123 @@ public class ProductApiClient : MonoBehaviour {
 
 ![alt text](image-234.png)
 
-- MQTT 브로커를접속해서 데이터를 가져오는 것보다 API 웹서비스를 접속해서 데이터 가져오는 것이 훨씬 간편
+- MQTT 브로커를 접속해서 데이터를 가져오는 것보다 API 웹서비스를 접속해서 데이터 가져오는 것이 훨씬 간편
 
 
-## 4. ASP.NET Core 도커
+### ASP.NET Core 도커
 
+- 웹서비스를 도커 이미지로 만든 뒤 도커에서 실행하는 방법
+- MSA(MicorService Architecture) 서비스를 만들때 효율적
 
-## 5. 웹 실습 프로젝트
+![alt text](./WebServerVsDocker.png)
 
-### IoT 스마트홈 통합 플랫폼
+#### 도커
 
-- MQTT WPF + Unity + WebAPI 연동
+- `Linux 컨테이너(기본)`와 Windows 컨테이너로 구분. 둘 사이 전환(switch) 가능
+- `Linux 컨테이너` - `WSL`(Window Subsystem for Linux) 필수
+- Windows 컨테이너 - Hyper-V 필수
 
-### 공공데이터 통합 플랫폼
+![alt text](image-236.png)
 
-- OpenAPI 서비스 + WPF 연동
+![alt text](image-237.png)
 
-### 스마트팩토리 MES 미니 플랫폼
+- Windows 컨테이너 상태 - 컨테이너 없음
 
-### AI 비전 검사 시스템
+![alt text](image-238.png)
 
-### 실시간 채팅 시스템 + 챗봇 기능
+- Linux 컨테이너 상태 - MySQL 컨테이너 확인
+
+- ASP.NET Core 컨테이너 두 개 모두 지원
+
+#### 기존 프로젝트 Docker 지원 추가
+
+- appsettings.json 오픈. server localhost를 해당 아이피주소로 변경(!)
+- 프로젝트 > Context menu > `컨테이너 지원` 선택
+
+![alt text](image-235.png)
+
+![alt text](image-239.png)
+
+- DockerFile 생성 - 도커 이미지 생성을 위한 구성 파일
+
+```dockerfile
+# Base
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
+WORKDIR /app
+EXPOSE 8080
+
+# Build
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY . .
+
+# Publish
+RUN dotnet publish -c $BUILD_CONFIGURATION -o /app/publish 
+
+# Final
+FROM base AS final
+WORKDIR /app
+COPY --from=build /app/publish .
+ENV ASPNETCORE_URLS=http://+:8080
+ENTRYPOINT ["dotnet", "ProductApi.dll"]
+```
+
+- 이미지 만들기
+
+```powershell
+# 이미지명은 소문자로
+> docker build -t productapi .
+```
+
+![alt text](image-240.png)
+
+- 빌드 진행상황
+
+![alt text](image-241.png)
+
+- 이미지 생성확인
+
+- 컨테이너 실행 - MySQL 80 이미지 실행과 거의 동일
+
+```powershell
+> docker run -d --name productapi-container -p 8080:8080 productapi
+```
+
+![alt text](image-242.png)
+
+- 컨테이너 실행화면
+
+![alt text](image-243.png)
+
+- 도커에서 실행되는 웹서비스 화면
+
+![alt text](image-244.png)
+
+- 디버깅용 도커 설치확인
+
+- 주의점! 
+    - localhost 사용안됨. 서비스중 아이피 주소로 변경
+    - 도커 컨테이너 실행여부 확인
+    - 유니티의 경우 HTTP 접속 허용
+
+    ![alt text](image-245.png)
+
+#### DevOps
+
+- Development + Operation - 개발과 운영을 하나의 프로세스로 연결. 소프트웨어 개발과 배포하는 문화 방법론
+
+- 개발 -> Git 저장 -> 자동빌드 -> Docker 이미지(Docker Hub) -> 서버 배포 -> 운영
+- DevOps 기술리스트 
+    - `Git`, `GitHub`, GitHub Actions(자동배포) - 소스관리
+    - Jenkins(자동배포, 자동빌드) - CI
+    - `Docker`, Kubernetes - 컨테이너, 컨테이너 관리
+    - Azure, AWS, GCP - 클라우드    
+    - Prometheus, Grafana - 모니터링
+    - ELK Stack(엘라스틱서치 스택) - 로그
+
+#### 전체 실행결과
+
+https://github.com/user-attachments/assets/f9ac6685-4e1f-43cf-acba-8f3da9b74a43
+
+[토이프로젝트](./README5.md)

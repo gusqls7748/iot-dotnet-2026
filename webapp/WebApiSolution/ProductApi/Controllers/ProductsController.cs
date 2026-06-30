@@ -38,7 +38,7 @@ namespace ProductApi.Controllers
                     Category = reader.IsDBNull(reader.GetOrdinal("category")) ? null : reader.GetString("category"),
                     Price = reader.GetDecimal("price"),
                     Stock = reader.GetInt32("stock"),
-                    CreateAt = reader.GetDateTime("created_at")
+                    CreatedAt = reader.GetDateTime("created_at")
                 });
             }
             return Ok(products); 
@@ -67,7 +67,7 @@ namespace ProductApi.Controllers
                     Category = reader.IsDBNull(reader.GetOrdinal("category")) ? null : reader.GetString("category"),
                     Price = reader.GetDecimal("price"),
                     Stock = reader.GetInt32("stock"),
-                    CreateAt = reader.GetDateTime("created_at")
+                    CreatedAt = reader.GetDateTime("created_at")
                 };
                 return Ok(product);
             }
@@ -95,7 +95,7 @@ namespace ProductApi.Controllers
 
             var newId = Convert.ToInt32(await cmd.ExecuteScalarAsync());
             product.ProductId = newId;
-            product.CreateAt = DateTime.Now;
+            product.CreatedAt = DateTime.Now;
 
             return Ok(product);
         }

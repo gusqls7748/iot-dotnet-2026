@@ -9,6 +9,6 @@
         public string Category { get; set; }
         public decimal Price { get; set; }
         public int Stock { get; set; }
-        public DateTime CreateAt { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }
