@@ -1015,6 +1015,8 @@ public class ProductApiClient : MonoBehaviour {
 
 ![alt text](image-234.png)
 
+- MQTT 브로커를접속해서 데이터를 가져오는 것보다 API 웹서비스를 접속해서 데이터 가져오는 것이 훨씬 간편
+
 
 ## 4. ASP.NET Core 도커
 
