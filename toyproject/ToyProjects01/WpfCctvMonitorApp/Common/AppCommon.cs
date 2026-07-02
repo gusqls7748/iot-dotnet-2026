@@ -14,6 +14,7 @@ namespace WpfCctvMonitorApp.Common
         public static string GetType { get; set; } = "json";  // xml은 안해
         public static string CctvType { get; set; } = "1";  // 1: HLS, 2:MP4, 3:정지영상. 4:HLS(https), 5:mp4(https) 2~5 필요없음
 
+
         // 대한민국 지도 영역
         // 위도 y
         public static double MinY { get; set; } = 33.100000;
@@ -83,5 +84,21 @@ namespace WpfCctvMonitorApp.Common
 
             ["제주"] = new GeoBound(33.1000, 33.6000, 126.1000, 126.9500),
         };
+
+        // 글자 길이가 너무길면 생략하는 메서드
+        public static string Ellipsis(string text, int maxLength = 100)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                return string.Empty; // ""
+            }
+
+            if (text.Length <= maxLength)
+            {
+                return text;
+            }
+
+            return text[..maxLength] + "...";
+        }
     }
 }
