@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="ItsCctvBrigeApi/ItsCctvBrigeApi.csproj" Id="f25911a0-aaf7-4626-ad80-c58cf8a2251b" />
   <Project Path="WpfCctvMonitorApp/WpfCctvMonitorApp.csproj" />
 </Solution>

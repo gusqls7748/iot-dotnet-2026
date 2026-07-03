@@ -277,12 +277,31 @@ PM> Install-Package WPF-UI
 
 ##### 변환 결과
 
-https://github.com/user-attachments/assets/7ef12649-d412-4c18-8f01-987949b677a5
+https://github.com/user-attachments/assets/5a49e9a8-c290-4b18-a385-23f49f5d597a
+
+##### 추가 수정
+
+- [x] 제목표시줄 추가 - WPF Ui 특성
+- [x] 메시지박스 변경
+
+    ![alt text](image-263.png)
+
+    ![alt text](image-264.png)
+
+- [x] CCTV 정보 글자 잘라서 표기
+
+    ![alt text](image-265.png)
+
+- [ ] 리스트박스 목록 크기, 텍스트, 즐겨찾기 정리
 
 ##### 프로그레스바
 
 - 검색 후 리스트박스 항목 다 나오기전까지 표시
 - WPF UI 적용 후 반영
+
+##### UI 적용화면
+
+https://github.com/user-attachments/assets/4fd0cd18-8a38-4515-9115-39c00c139b4b
 
 ##### 즐겨찾기 DB 추가
 
@@ -291,3 +310,68 @@ https://github.com/user-attachments/assets/7ef12649-d412-4c18-8f01-987949b677a5
 ---
 
 ### OpenAPI 래핑 웹서비스 
+
+#### 브릿지 웹서비스 구현
+
+##### ASP.NET Core API 프로젝트 
+
+##### WPF 앱 필요 클래스 가져오기
+
+- 네임스페이스 현재이름으로 변경
+    - AppCommon.cs 불필요한 속성 제거
+    - CctvInfo.cs
+    - CctvResponse.cs
+    - ItsCctvSerivce.cs 수정
+
+##### Program.cs에 서비스 등록
+
+- ItsCctvService 등록
+
+##### appsettings.json 
+
+- Its서비스키 추가
+
+##### ApiController 추가
+
+- ItsCctvController.cs 클래스 생성
+
+##### 실행결과
+
+![alt text](image-266.png)
+
+- WPF에서 결과 json 구조 변경
+
+#### 이전 WPF 연계작업
+
+##### API 웹서비스 CctvResultDto 가져오기
+
+- WPF로 복사 
+- 오류나는 부분들 전체 수정
+
+#### 전체 다이어그램
+
+![alt text](image-267.png)
+
+#### 사용기술
+
+|구분|기술|
+|---|---|
+|윈앱 UI | WPF(.NET 10), WPF UI Framework|
+|통신 | HTTP(HTTPS 확장가능) |
+|데이터형식 | JSON, 직렬화,역직렬화 |
+|브짓지서버 | ASP.NET Core Web API |
+|웹서버| Kestrel(크로스플랫폼 웹서버)  |
+|설정관리 | appsettings.json, App.config(XML) |
+|서비스호출 | HttpClient |
+|외부API | ITS  국가교통정보센터 OpenAPI |
+|API방식 | REST API |
+|웹아키텍처 | Model-Service-Controler Layer |
+
+
+#### 추가 중
+
+- 테마 다크모드/라이트모드 변경 기능 - 다크모드에서 스트리밍 재생불가 확인요
+
+![alt text](image-268.png)
+
+![alt text](image-269.png)
