@@ -19,14 +19,15 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="36" />
         </Grid.RowDefinitions>
-        
-        <ui:TitleBar x:Name="TlbMain" Grid.Row="0"
-                     Title=""
-                     CloseWindowByDoubleClickOnIcon="True">
+
+        <ui:TitleBar 
+            x:Name="TlbMain" Grid.Row="0"
+            Title=""
+            CloseWindowByDoubleClickOnIcon="True">
             <ui:TitleBar.Icon>
                 <ui:ImageIcon Source="/cctv-camera.ico" />
             </ui:TitleBar.Icon>
-                    </ui:TitleBar>
+        </ui:TitleBar>
 
         <!-- 메인화면 Grid -->
         <Grid Grid.Row="1" Margin="10">
@@ -103,6 +104,21 @@
                                 Content="초기화" Click="BtnInit_Click"/>
                     </StackPanel>
                 </GroupBox>
+
+                <ui:Card Margin="2">
+                    <StackPanel>
+                        <TextBlock Text="테마" FontWeight="SemiBold" />
+
+                        <Separator Margin="0,5"/>
+
+                        <ui:ToggleSwitch x:Name="TgsTheme" Content="다크 모드"
+                                         OffContent="Light" OnContent="Dark"
+                                         Checked="TgsTheme_Checked"
+                                         Unchecked="TgsTheme_Unchecked"/>
+                    </StackPanel>
+
+                </ui:Card>
+
             </StackPanel>
 
             <!-- Col1 : CCTV목록 영역 -->
@@ -327,12 +343,9 @@
                            Text="마지막 업데이트 : 14:30:25  ⟳"/>
             </Grid>
         </Border>
-        <!-- WPF UI용 다이얼로그-->
+
+        <!-- WPF UI용 다이얼로그 -->
         <!--<ui:ContentDialogHost x:Name="RootContentDialogHost" Grid.Row="0" />-->
-        
-        <!-- 로딩 오버레이 영역 -->
-        <Grid>
-            
-        </Grid>
     </Grid>
 </ui:FluentWindow>
+ 

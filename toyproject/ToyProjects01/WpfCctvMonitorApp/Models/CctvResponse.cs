@@ -1,21 +1,22 @@
-﻿namespace WpfCctvMonitorApp.Models
+﻿using Newtonsoft.Json;
+
+namespace WpfCctvMonitorApp.Models
 {
-    public class CctvRequest
+    public class CctvResponse
     {
-        // Type 클래스 키워드명 -> RoadType 으로 변경
-        public string RoadType { get; set; } = "ex"; // 고속도로 기본 선택
+        [JsonProperty("response")]
+        public ResponseData Response { get; set; } = new();
+    }
 
-        public int CctvType { get; set; } = 1; // 1:HLS, 2:mp4, 3:img, 4:HLS(https), 5:mp4(https)
+    public class ResponseData
+    {
+        [JsonProperty("coordtype")]
+        public int CoordType { get; set; } = 0;
 
-        public double MinX { get; set; }
+        [JsonProperty("data")]
+        public List<CctvInfo> Data { get; set; } = new();
 
-        public double MaxX { get; set; }
-
-        public double MinY { get; set; }
-
-        public double MaxY { get; set; }
-
-        // GetType() 메서드로 이름 변경 GetRetType
-        public string GetRetType { get; set; } = "json";
+        [JsonProperty("datacount")]
+        public int DataCount { get; set; } = 0;
     }
 }

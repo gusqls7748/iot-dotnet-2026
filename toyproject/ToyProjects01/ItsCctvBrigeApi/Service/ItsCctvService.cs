@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System.Buffers.Text;
 using System.Runtime.InteropServices;
+using System.Text.Json.Serialization;
 
 namespace ItsCctvBridgeApi.Services
 {
