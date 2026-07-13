@@ -1,4 +1,4 @@
-@ItsCctvBrigeApi_HostAddress = http://localhost:5162
+@ItsCctvBrigeApi_HostAddress = http://localhost:5179
 
 GET {{ItsCctvBrigeApi_HostAddress}}/weatherforecast/
 Accept: application/json
