@@ -1,0 +1,58 @@
+﻿<mah:MetroWindow x:Class="WpfMvvm02.Views.MainView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"     
+      xmlns:mah="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      xmlns:local="clr-namespace:WpfMvvm02.Views"
+      mc:Ignorable="d" 
+      Title="{Binding Title}" Height="800" Width="1000">
+    <mah:MetroWindow.IconTemplate>
+        <DataTemplate>
+            <iconPacks:PackIconMetrialDesign Kind="Book" Margin="10,7,0,0" Forground="White" />
+        </DataTemplate>
+    </mah:MetroWindow.IconTemplate>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="35" />
+        </Grid.RowDefinitions>
+
+        <MenuItem Header="관리">
+            <MenuItem.Icon>
+                <iconPacks:RemixIcon Kind="RemoteControl2Fill" />
+            </MenuItem.Icon>
+
+            <!-- 하위 메뉴아이템 -->
+
+            <MenuItem Header="책장르" Command="">
+                <MenuItem.Icon>
+                    <iconPacks:MaterialDesign Kind="Category" />
+                </MenuItem.Icon>
+            </MenuItem>
+
+            <MenuItem Header="도서" Command="">
+                <MenuItem.Icon>
+                    <iconPacks:PhosphorIcons Kind="BooksFill" />
+                </MenuItem.Icon>
+            </MenuItem>
+
+            <MenuItem Header="회원" Command="">
+                <MenuItem.Icon>
+                    <iconPacks:PhosphorIcons Kind="UserListBold" />
+                </MenuItem.Icon>
+            </MenuItem>
+
+            <MenuItem Header="대여" Command="">
+                <MenuItem.Icon>
+                    <iconPacks:FontAwesome Kind="TruckRampBoxSolid" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </MenuItem>
+        </Menu>
+        </StackPanel>
+        
+    </Grid>
+</mah:MetroWindow>
