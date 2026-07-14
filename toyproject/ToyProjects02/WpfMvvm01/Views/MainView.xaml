@@ -7,18 +7,19 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MainView">
-
     <StackPanel>
         <TextBox FontSize="30" Text="{Binding Message, UpdateSourceTrigger=PropertyChanged}" />
         <TextBlock FontSize="30" Foreground="Blue" Text="{Binding Message}" />
+        <Button Content="변경" Command="{Binding ChangeMessageCommand}" />
 
-        <ListView ItemsSource="{Binding People}">
+        <ListView ItemsSource="{Binding People}" 
+                  SelectedItem="{Binding SelectedPerson}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Name}" FontSize="20" Foreground="Aquamarine" />
+                    <TextBlock Text="{Binding Name}" FontSize="20" Foreground="BlueViolet" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <TextBlock FontSize="20" Foreground="CadetBlue" Text="{Binding SelectedPerson}"
+        <TextBlock FontSize="20" Foreground="CadetBlue" Text="{Binding SelectedPerson.Name}" />
     </StackPanel>
 </Window>

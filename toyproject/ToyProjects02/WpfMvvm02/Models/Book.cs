@@ -3,12 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace WpfMvvm02.Models
-{
-    internal class Book : ObservableObject
-    {
+namespace WpfMvvm02.Models {
+    public partial class Book : ObservableObject {
         [ObservableProperty]
-        private int bookIdx; // BookIdx 자동생성
+        private int bookIdx;  // BookIdx 자동생성
 
         [ObservableProperty]
         private string author = string.Empty;
@@ -16,6 +14,8 @@ namespace WpfMvvm02.Models
         [ObservableProperty]
         private string divCode = string.Empty;
 
+        [ObservableProperty]
+        private string divName = string.Empty;  // JOIN할 때 사용
 
         [ObservableProperty]
         private string bookName = string.Empty;

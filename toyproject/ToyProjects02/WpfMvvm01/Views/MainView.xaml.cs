@@ -1,12 +1,11 @@
 ﻿using System.Windows;
 
-namespace WpfMvvm01.Views
-{
-    // 여기서 : Window 가 빠져 있으면 Show() 메서드를 사용할 수 없습니다.
-    public partial class MainView 
-    {
-        public MainView()
-        {
+namespace WpfMvvm01.Views {
+    /// <summary>
+    /// MainView.xaml에 대한 상호 작용 논리
+    /// </summary>
+    public partial class MainView : Window {
+        public MainView() {
             InitializeComponent();
         }
     }
