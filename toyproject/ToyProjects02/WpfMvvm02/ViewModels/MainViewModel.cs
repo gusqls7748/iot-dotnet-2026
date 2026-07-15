@@ -13,7 +13,10 @@ namespace WpfMvvm02.ViewModels {
         // 메인화면 영역
         [ObservableProperty]
         private UserControl currentView;
-        // public CurrentView 자동생성
+        // public CurrentView 속성 자동생성
+
+        [ObservableProperty]
+        private string currentViewName;
 
         private readonly IDialogCoordinator _coordinator;
 
@@ -43,12 +46,22 @@ namespace WpfMvvm02.ViewModels {
 
         [RelayCommand]
         public void ShowDivision() {
-            MessageBox.Show("TEST");
+            //MessageBox.Show("TEST");
             var view = new DivisionView();
             view.DataContext = new DivisionViewModel(DialogCoordinator.Instance);
 
 
             CurrentView = view;
+            CurrentViewName = "현재화면 : 책장르 관리";
+        }
+
+        [RelayCommand]
+        public void ShowBook() {
+            var view = new BookView();
+            view.DataContext = new BookViewModel(DialogCoordinator.Instance);
+
+            CurrentView = view;
+            CurrentViewName = "현재화면 : 도서 관리";
         }
 
         #endregion

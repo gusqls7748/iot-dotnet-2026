@@ -49,7 +49,7 @@
                          mah:TextBoxHelper.Watermark="장르 코드" 
                          mah:TextBoxHelper.ClearTextButton="True"
                          Margin="3"
-                         Text="" />
+                         Text="{Binding SelectedDivision.DivCode}" />
 
                 <TextBlock Grid.Row="2" Text="장르명" Margin="3" />
 
@@ -57,7 +57,7 @@
                          mah:TextBoxHelper.Watermark="장르명" 
                          mah:TextBoxHelper.ClearTextButton="True"
                          Margin="3"
-                         Text="" />
+                         Text="{Binding SelectedDivision.DivName}" />
 
                 <StackPanel Grid.Row="5" HorizontalAlignment="Right" Orientation="Horizontal">
                     <Button Content="초기화" Margin="0,0,5,0" 

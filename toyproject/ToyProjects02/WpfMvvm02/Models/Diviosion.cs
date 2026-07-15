@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace WpfMvvm02.Models {
-    public class Division {
-        public string DivCode { get; set; } = string.Empty;
+    public partial class Division : ObservableObject {
 
-        public string DivName { get; set; } = string.Empty;
+        [ObservableProperty]
+        private string divCode = string.Empty;
+
+        [ObservableProperty]
+        private string divName = string.Empty;
     }
 }
