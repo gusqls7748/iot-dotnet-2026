@@ -15,7 +15,9 @@ namespace WpfMvvm02.ViewModels {
         private readonly IDialogCoordinator _coordinator;
 
         public ObservableCollection<Division> Divisions { get; set; }
-        public ObservableCollection<Book> Books { get; set; }
+
+        // null 상태(x) -> 객체 생성된 상태로
+        public ObservableCollection<Book> Books { get; set; } = new ObservableCollection<Book>();
 
         [ObservableProperty]
         private Book selectedBook;
@@ -49,7 +51,7 @@ namespace WpfMvvm02.ViewModels {
 
         private void LoadDataFromDb() {
             try {
-                Books = new ObservableCollection<Book>();
+                Books.Clear(); // 책 리스트를 전부 초기화
                 string query = @"SELECT b.book_idx, b.author, 
 	                                    b.div_code, d.div_name,
 	                                    b.book_name, b.release_dt, 
@@ -83,10 +85,28 @@ namespace WpfMvvm02.ViewModels {
         #region 'Command 명령 영역'
 
         [RelayCommand]
+        public void Reset() {
+            SelectedBook = CreateEmptyBook();
+        }
+
+        private Book CreateEmptyBook() {
+            return new Book {
+                BookIdx = 0,
+                Author = string.Empty,
+                DivCode = string.Empty,
+                DivName = string.Empty,
+                BookName = string.Empty,
+                Isbn = string.Empty,
+                ReleaseDt = DateTime.Today,
+                Price = 0,
+            };
+        }
+
+        [RelayCommand]
         public void Save() {
             try {
                 if (SelectedBook.BookIdx == 0) { // 신규
-
+                    InsertBook();
                 } else { // 수정
                     UpdateBook();
                 }
@@ -98,6 +118,72 @@ namespace WpfMvvm02.ViewModels {
                 _coordinator.ShowMessageAsync(this, "저장오류", $"도서 저장 중 오류 발생 : {ex.Message}");
             }
         }
+
+        // 입력 검증!
+        private bool ValidateBook() {
+            if (string.IsNullOrWhiteSpace(SelectedBook.DivCode)) {
+                _coordinator.ShowMessageAsync(this, "입력확인", "책장르를 선택하세요.");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(SelectedBook.BookName)) {
+                _coordinator.ShowMessageAsync(this, "입력확인", "책제목을 입력하세요.");
+            }
+
+            if(string.IsNullOrWhiteSpace(SelectedBook.Author)) {
+                _coordinator.ShowMessageAsync(this, "입력확인", "저자를 입력하세요.");
+            }
+
+            if(SelectedBook.Price <= 0) {
+                _coordinator.ShowMessageAsync(this, "입력 확인", "가격을 입력하세요.");
+            }
+        }
+
+        [RelayCommand]
+        public async Task DeleteAsync() {
+            if(SelectedBook.BookIdx == 0) {
+                await _coordinator.ShowMessageAsync(this, "삭제확인", "삭제할 도서를 선택하세요.");
+                return;
+            }
+
+            var result = await _coordinator.ShowMessageAsync(this, "삭제확인",
+                                                $"'{SelectedBook.BookName}' 도서를 삭제하시겠습니까?",
+                                                MessageDialogStyle.AffirmativeAndNegative,
+                                                new MetroDialogSettings {
+                                                    AffirmativeButtonText = "삭제", //OK 대신
+                                                    NegativeButtonText = "취소"   // Cancel 대신
+                                                });
+        }
+
+        private void InsertBook() {
+            string query = @"
+                                INSERT INTO books
+                                     ( author
+                                     , div_code
+                                     , book_name
+                                     , release_dt
+                                     , isbn
+                                     , price)
+                                VALUES
+                                     ( @author
+                                     , @div_code
+                                     , @book_name
+                                     , @release_dt
+                                     , @isbn
+                                     , @price)
+                                ";
+                                        
+        _helper.Execute(query,
+                new MySqlParameter("@author", SelectedBook.Author),
+                new MySqlParameter("@div_code", SelectedBook.DivCode),
+                new MySqlParameter("@book_name", SelectedBook.BookName),
+                new MySqlParameter("@release_dt", SelectedBook.ReleaseDt.ToString("yyyy-MM-dd")),
+                new MySqlParameter("@isbn", SelectedBook.Isbn),
+                new MySqlParameter("@price", SelectedBook.Price),
+                new MySqlParameter("@book_idx", SelectedBook.BookIdx)
+                );
+        }
+
 
         private void UpdateBook() {
             string query = @"

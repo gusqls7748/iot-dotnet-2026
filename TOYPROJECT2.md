@@ -283,3 +283,34 @@ public void ShowDivision() {
 - ViewModel 클래스 복사, 이름변경/클래스명 변경
 - MainView에서 메뉴 명령 추가
 - MainViewModel에서 명령에 바인딩되는 메서드 추가
+
+#### 데이터 수정 후 변경 표시 안되는 오류
+
+![alt text](image-279.png)
+
+- 콤보박스 데이터바인딩 된 컨트롤 데이터 선택시 바인딩 모드 문제발생
+- 콤보박스 Selected/also 기본 바인딩 모드 TwoWay
+
+```xml
+<ComboBox 
+    Grid.Row="1" Margin="3" 
+    mah:TextBoxHelper.Watermark="장르명"
+    ItemsSource="{Binding Divisions}"
+    SelectedValuePath="DivCode"
+    DisplayMemberPath="DivName"
+    SelectedValue="{Binding SelectedBook.DivCode, 
+                            UpdateSourceTrigger=PropertyChanged}"/>
+
+```
+
+- ViewModel에서 ObservableCollection<> 객체 생성, DB 데이터 로드전에 초기화 로직 잘못 작성해서 생긴 문제
+
+![alt text](image-280.png)
+
+![alt text](image-281.png)
+
+![alt text](image-282.png)
+
+![alt text](image-283.png)
+
+![alt text](image-284.png)

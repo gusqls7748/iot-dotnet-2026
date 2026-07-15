@@ -14,7 +14,7 @@
 
 ### 깃허브 대문 작성
 
-- GitHub 대문 Readme.md
+- [GitHub 대문 Readme](./TOYPROJECT3.md).md
 
 ### Unity ProductApp 기능 개선
 
@@ -36,3 +36,10 @@
 ### 실시간 채팅 시스템 + 챗봇 기능
 
 - Python AI + SignalR API
+
+### 취업처 설명
+
+- 사랑인, 잡코리아 확인
+    - 분야, 입력(임베디드)
+    - 신입 선택, 학력 미선택
+    -
