@@ -46,7 +46,7 @@ def detectObjects(image: Image.Image):
         class_ids = obj.boxes.cls           # 박스 인식된 물체 클래스 번호
 
         for (box, conf, class_id) in zip(boxes, confidences, class_ids):
-            if conf <= 0.5: continue
+            # if conf <= 0.5: continue
 
             x1, y1, x2, y2 = map(int, box)      # x1,y1(박스 좌측상단), x2,y2(박스 우측하단)
             label = classNames[int(class_id)]   # 단일클래스 명
@@ -63,7 +63,7 @@ def detectObjects(image: Image.Image):
 async def root():
     image = Image.open('./test01.png')  # PILLOW 패키지로 이미지오픈 메모리 업
 
-    if image.mode != 'RGB' : image = image.convert('RGB') #RGB로 변환
+    if image.mode != 'RGB': image = image.convert('RGB')
 
     result = detectObjects(image)       # YOLO로 물체인식, 영역 표시
 
@@ -78,6 +78,7 @@ async def root():
 @app.post('/detect', response_model=DetectionResult)
 async def detectService(message: str=Form(...), file: UploadFile = File(...)):
     message = '[서버처리완료] ' + message
+
     # 이미지 로드 PILLOW이미지로 변환
     image = Image.open(BytesIO(await file.read())) # 웹으로 전달된 이미지 로드
 

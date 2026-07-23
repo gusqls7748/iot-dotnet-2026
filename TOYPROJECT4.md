@@ -214,8 +214,32 @@ async def root():
 
 ![alt text](image-313.png)
 
-- MQTT 전송
+#### MQTT 전송
+
+- MQRR 브로커 설정 수정 - WebSocket 사용위해 설정 추가
+- 윈도우 서비스(service.msc) 에서 mosqutto broker 실행중지
+- `mosqitto.conf` 파일수정
+
+
+```conf
+## 기본설정 - 그대로 사용
+listener 1883
+protocol mqtt
+
+## WebSocket 설정 - 스트리밍용 추가
+listener 9001
+protocol websockets
+```
+
+|포트|프로토콜|주 사용처|
+|---|---|---|
+|1883|MQTT|Python, C#, JAVA, ESP32, RasberryPi 등 MQTT 클라이언트 |
+|9001|WebSocket|Javascript, Unity WebGL, Streaming |
 
 - ASP.NET 웹페이지 객체인식결과 스트리밍
+
+동영상 업로드
+
+- 클래스별로 색상다르게 표시
 
 ### 비전검사
