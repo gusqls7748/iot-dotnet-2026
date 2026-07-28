@@ -41,7 +41,8 @@ model = YOLO('yolov11_firedetect.pt')  # 화재감지 모델
 w, h = 640, 360
 api = cv2.CAP_DSHOW 
 
-cap = cv2.VideoCapture('./sample_fires.mp4')
+# cap = cv2.VideoCapture('./sample_fires.mp4')
+cap = cv2.VideoCapture(0)
 
 cv2.namedWindow('Result', cv2.WINDOW_NORMAL)
 cv2.resizeWindow('Result', w, h)

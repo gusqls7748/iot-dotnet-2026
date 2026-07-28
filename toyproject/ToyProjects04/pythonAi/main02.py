@@ -2,34 +2,35 @@
 import uvicorn
 from fastapi import FastAPI, HTTPException
 
-app = FastAPI() # 객체 생성
+app = FastAPI()  # 객체 생성
 
-#json 데이터 생성
+# json 데이터 생성
 products = [
     {
         'id': 1,
-        "name": "Lenovo AI 154",
-        "price": 2_500_000 # 2500000
+        'name': 'Lenovo AI 154',
+        'price': 2_500_000  # 2500000
     },
     {
         'id': 2,
-        "name": "MS Bluetooth Keyboard",
-        "price": 120_000 
+        'name': 'MS Bluetooth Keyboard',
+        'price': 120_000
     }
 ]
 
+# 기본 route
 @app.get('/')
 def root():
     return {
         'message': "FastAPI server start!"
     }
 
-# 전체데이터
+# 전체 데이터
 @app.get('/products')
 def get_products():
     return products;
 
-# 상세데이터
+# 상세 데이터
 @app.get('/products/{product_id}')
 def get_product(product_id: int):
     for product in products:
