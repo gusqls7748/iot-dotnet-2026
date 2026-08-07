@@ -60,9 +60,11 @@
     <Compile Include="Assets\_Unity Essentials\Source Files\ThirdPersonController\Scripts\BasicRigidBodyPush.cs" />
     <Compile Include="Assets\M2Mqtt\WinRT\Hashtable.cs" />
     <Compile Include="Assets\M2Mqtt\Session\MqttClientSession.cs" />
+    <Compile Include="Assets\Scripts\ProductResult.cs" />
     <Compile Include="Assets\M2Mqtt\Utility\QueueExtension.cs" />
     <Compile Include="Assets\M2Mqtt\Messages\MqttMsgPublishEventArgs.cs" />
     <Compile Include="Assets\M2Mqtt\Internal\MsgInternalEvent.cs" />
+    <Compile Include="Assets\Scripts\SmartFactoryMqttClient.cs" />
     <Compile Include="Assets\M2Mqtt\WinRT\MqttNetworkChannel.cs" />
     <Compile Include="Assets\M2Mqtt\MqttClient.cs" />
     <Compile Include="Assets\M2Mqtt\IMqttNetworkChannel.cs" />
@@ -714,6 +716,10 @@
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe">
       <HintPath>Library\PackageCache\com.unity.collections@5b6ebd78ccc0\Unity.Collections.Tests\System.Runtime.CompilerServices.Unsafe\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@4dfd81071c64\Runtime\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="netstandard">

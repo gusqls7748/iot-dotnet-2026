@@ -307,11 +307,37 @@ https://github.com/user-attachments/assets/f117f601-f956-414d-b6cc-8c420a34f4f7
 
 - 아두이노 + 라즈베리파이 5
 
+![alt text](image-336.png)
+
 #### MQTT 통신 구현
 
 - Raspbian -> Windows MQTT 통신
 
 
 ### Unity 디지털트윈 시스템
+
+- M2MqttUnity 설치
+  - [github](https://github.com/gpvigano/M2MqttUnity) 코드 다운로드
+  - 압축해제 한 Asset 폴더를 Unity 프로젝트 Assets에 복사
+
+  - M2MqttUnity_Test 신 사용 테스트 
+
+  - 접속확인
+
+  - MQTT 데이터 Subscribe 로직 작성
+
+  ##### 빈오브젝트 생성
+
+  - MqttClient
+  - Script 컴포넌트로 연결
+  - SensorTrigger.cs 의 로그 주석처리
+
+  ### 유니티
+
+  #### Newtonsoft.Json 라이브러리 설치
+
+  - window > Pacage Management
+
+  #### Scripts 
 
 ### WPF 모니터링 시스템
