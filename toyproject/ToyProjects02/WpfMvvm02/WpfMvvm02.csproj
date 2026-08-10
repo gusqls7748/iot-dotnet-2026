@@ -10,10 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\..\..\..\Users\User\Downloads\DatabaseHelper.cs" Link="Helpers\DatabaseHelper.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="icons8-book-64.ico" />
   </ItemGroup>
 
@@ -25,7 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Helpers\" />
+    <Compile Update="Views\BookView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>

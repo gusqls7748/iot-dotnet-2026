@@ -41,7 +41,7 @@
                     <MenuItem.Icon>
                         <iconPacks:RemixIcon Kind="RemoteControl2Fill" />
                     </MenuItem.Icon>
-
+                    
                     <!-- 하위 메뉴아이템 -->
 
                     <MenuItem Header="책장르" Command="{Binding ShowDivisionCommand}">
@@ -79,13 +79,13 @@
                             <iconPacks:PackIconJamIcons Kind="InfoF" />
                         </MenuItem.Icon>
                     </MenuItem>
-                </MenuItem>
+                </MenuItem>                
             </Menu>
         </StackPanel>
-
+        
         <!--메인 영역(장르관리, 도서관리, 회원관리, 대여관리)-->
         <ContentControl Grid.Row="1" Content="{Binding CurrentView}"></ContentControl>
-
+        
         <!-- 상태바 -->
         <StatusBar Grid.Row="2">
             <StatusBarItem Content="{Binding CurrentViewName}"></StatusBarItem>

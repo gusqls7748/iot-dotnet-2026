@@ -1,11 +1,14 @@
 ﻿using System.Windows;
 
-namespace WpfMvvm01.Views {
+namespace WpfMvvm01.Views
+{
     /// <summary>
     /// MainView.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class MainView : Window {
-        public MainView() {
+    public partial class MainView : Window
+    {
+        public MainView()
+        {
             InitializeComponent();
         }
     }

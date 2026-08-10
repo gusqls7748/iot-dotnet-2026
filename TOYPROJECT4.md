@@ -216,13 +216,12 @@ async def root():
 
 #### MQTT 전송
 
-- MQRR 브로커 설정 수정 - WebSocket 사용위해 설정 추가
-- 윈도우 서비스(service.msc) 에서 mosqutto broker 실행중지
-- `mosqitto.conf` 파일수정
-
+- MQTT 브로커 설정 수정 - WebSocket 사용 위해 설정 추가
+- 윈도우 서비스(services.msc) 에서 mosquitto broker 실행 중지
+- `mosquitto.conf` 파일 수정
 
 ```conf
-## 기본설정 - 그대로 사용
+## 기본 MQTT 설정 - 그대로 사용
 listener 1883
 protocol mqtt
 
@@ -233,13 +232,70 @@ protocol websockets
 
 |포트|프로토콜|주 사용처|
 |---|---|---|
-|1883|MQTT|Python, C#, JAVA, ESP32, RasberryPi 등 MQTT 클라이언트 |
-|9001|WebSocket|Javascript, Unity WebGL, Streaming |
+|1883|MQTT| Python, C#, JAVA, ESP32, RaspberryPi 등 MQTT 클라이언트 |
+|9001|WebSocket| Javascript, Unity WebGL, Streaming |
 
-- ASP.NET 웹페이지 객체인식결과 스트리밍
+- Python에서 paho.mqtt로 웹소켓 스트리밍 전달
 
-동영상 업로드
+![alt text](image-314.png)
+
+- 데이터 전달확인
+
+![alt text](image-315.png)
+
+- ASP.NET 웹페이지 객체인식결과 스트리밍 
+
+https://github.com/user-attachments/assets/90497b96-f081-4a47-a52e-3dc3be9547a1
 
 - 클래스별로 색상다르게 표시
 
-### 비전검사
+![alt text](image-316.png)
+
+### 프로젝트 리스트
+
+- 현재까지
+    - 웹 이미지 객체 탐지
+    - 웹캠/동영상 객체 탐지
+    - 사람 모자이크 처리
+
+- 난이도 하
+    - 탐지된 객체수 집계
+    - 진행방향별 차량 통과수 집계
+    - 반려동물 감지 시스템
+
+- 난이도 중
+    - 매장 방문객 분석
+    - 진행방향별 차량 통행량 분석
+    - 주차장 차량관리    
+    - 칩입 감지시스템
+    - 장기 체류자 감지
+    - 사람 쓰러짐 감지 
+
+- 난이도 상
+    - 안전모 착용 감지
+    - 운전중 졸음 감지
+    - 불량품 검출
+    - 제품 수량 검사, 포장 누락 검사
+    - 공정 위치 이탈 감지
+    - `화재/연기 감지`
+    - 위험구역 접근 감지
+    - 공장 라인 생산량 집계
+    - AI 스마트 경광등, 도어, 쓰레기통, 농장 동물 감지
+
+
+### 화재/연기 감지 알람시스템
+
+- Python에서 진행한 화재/연기 감지 소스 활용
+- firedetect-11s.pt 사전학습 모델 활용
+
+- MQTT Broker로 화재감지 데이터 전달
+
+![alt text](image-317.png)
+
+- 화재감지 모니터링 - [firedetect.html](./toyproject/ToyProjects04/BackendCs/ResponseAiServer/wwwroot/firedetect.html)
+
+![alt text](image-318.png)
+
+- 실핼결과
+
+https://github.com/user-attachments/assets/4a8fbc55-ee37-4e6b-bcfe-101733e5ba85

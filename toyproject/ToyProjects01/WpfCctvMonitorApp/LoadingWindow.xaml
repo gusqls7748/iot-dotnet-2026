@@ -14,7 +14,6 @@
         ShowInTaskbar="False"
         WindowStartupLocation="CenterOwner"
         Height="290" Width="260">
-
     <Border Background="#66000000"
             CornerRadius="16" Padding="24">
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">

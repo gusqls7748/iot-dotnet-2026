@@ -30,7 +30,7 @@ namespace WpfCctvMonitorApp
         private GeoBound selectedGeoBound;
 
         // ProgressRing 창 변수
-        private LoadingWindow? loadingWindow;
+        private LoadingWindow? loadingWindow; 
 
         #endregion
 
@@ -155,7 +155,7 @@ namespace WpfCctvMonitorApp
             try
             {
                 // 로딩창 열기
-                ShowLoading();
+                ShowLoading(); 
                 BtnSearch.IsEnabled = false;
 
                 // 프로세스 진행
@@ -263,7 +263,7 @@ namespace WpfCctvMonitorApp
             libVLC.Dispose();
         }
 
-
+        
 
         #endregion
 
@@ -292,7 +292,7 @@ namespace WpfCctvMonitorApp
             VvwScreen.MediaPlayer = mediaPlayer;
         }
 
-
+        
         //private async Task<bool> InitApiKey()
         //{
         //    //AppCommon.ItsApiKey = ConfigurationManager.AppSettings["ItsApiKey"];
@@ -457,7 +457,7 @@ namespace WpfCctvMonitorApp
         // 스트리밍 재생 메서드
         private async Task PlayCctv(string url)
         {
-            if (string.IsNullOrWhiteSpace(url))
+            if (string.IsNullOrWhiteSpace(url)) 
                 return;
 
             try
@@ -471,15 +471,15 @@ namespace WpfCctvMonitorApp
                 await ShowMessageAsync("오류", $"스트리밍 재생 오류 발생 : {ex.Message}");
                 //System.Windows.MessageBox.Show(ex.Message);
             }
-        }
-
+        }       
+            
         // 단순 MessageBox.Show 대신 사용할 메서드
-        private async Task ShowMessageAsync(string title, string message)
+        private async Task ShowMessageAsync(string title, string message) 
         {
             var uiMessagebox = new Wpf.Ui.Controls.MessageBox
             {
                 Title = title,
-                Content = message,
+                Content = message,                
             };
 
             _ = await uiMessagebox.ShowDialogAsync();
@@ -491,9 +491,9 @@ namespace WpfCctvMonitorApp
             var uiMessagebox = new Wpf.Ui.Controls.MessageBox
             {
                 Title = title,
-                Content = message,
+                Content = message,                               
 
-                PrimaryButtonText = "예",
+                PrimaryButtonText = "예",                
                 SecondaryButtonText = "아니오",
                 IsCloseButtonEnabled = false,
             };
@@ -528,7 +528,7 @@ namespace WpfCctvMonitorApp
 
         private void TgsTheme_Checked(object sender, RoutedEventArgs e)
         {
-            ApplicationThemeManager.Apply(ApplicationTheme.Dark,
+            ApplicationThemeManager.Apply(ApplicationTheme.Dark, 
                                                 WindowBackdropType.Mica, true);
 
             if (LsbCctv.SelectedItem is not CctvResultDto selected)
@@ -541,7 +541,7 @@ namespace WpfCctvMonitorApp
         {
             ApplicationThemeManager.Apply(ApplicationTheme.Light,
                                                     WindowBackdropType.None, true);
-
+            
         }
     }
 }

@@ -10,7 +10,7 @@ namespace WpfCctvMonitorApp.Common
         public const string appName = "국가교통정보센터 CCTV 정보앱 v1.3";
 
         //public const string baseUrl = "https://openapi.its.go.kr:9443/cctvInfo";
-        public const string baseUrl = "http://localhost:5179/api/itscctv";
+        public const string baseUrl = "http://localhost:5146/api/itscctv";
 
         // 승인받은 API키 입력. user-secrets, setx 외부공개안하거나, App.config 환경변수로 분리 저장
         //public static string? ItsApiKey { get; set; } = "OPENAPI_KEY";
