@@ -38,3 +38,10 @@ ESP32 기반 프로세서 사용, WiFi, 블루투스를 지원하는 아두이�
 Arduino IDE 나 Visual Studio Code - Paltform IDE
 
 - VS CODE 확장 Platform IDE
+
+
+https://roboflow.com/
+
+https://www.cvat.ai/
+
+https://github.com/HumanSignal/labelImg

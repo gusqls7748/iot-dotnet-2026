@@ -22,6 +22,11 @@
 ### 스마트팩토리 MES 미니 플랫폼
 
 - [컨베이어벨트 조별 + MQTT + Unity 연계](./TOYPROJECT5.md)
+- [컨베이어벨트 + ESP32-CAM + YOLO](./TOYPROJECT6.md)
+
+### AI 문서 검색, 질의 응답 시스템
+
+- [AI 자동응답 시스템](./TOYPROJECT7.md) 
 
 ### IoT 스마트홈 통합 플랫폼
 
