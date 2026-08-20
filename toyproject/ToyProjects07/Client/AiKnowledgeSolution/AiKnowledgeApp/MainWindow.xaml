@@ -14,25 +14,30 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <!--타이틀-->
+        <!-- 타이틀 -->
         <TextBlock Grid.Row="0"
                    Text="AI 문서 지식검색 시스템"
                    FontSize="25" FontWeight="Bold"
-                   Margin="0,0,0,20" />
-        
-        <!-- PDF 선택 -->
+                   Margin="0,0,0,20"/>
+
+        <!-- PDF 선택 및 등록 -->
         <Grid Grid.Row="1" Margin="0,0,0,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="110" />
             </Grid.ColumnDefinitions>
 
-            <TextBox x:Name="TxtPdfPath" Height="38" VerticalContentAlignment="Center"
+            <TextBox x:Name="TxtPdfPath" Grid.Column="0" Height="38" 
+                     VerticalContentAlignment="Center"
                      IsReadOnly="True" Margin="0,0,10,0" FontFamily="Consolas" />
-            <Button x:Name="BtnSelfPdf" Grid.Column="1" Content="Pdf 선택" Height="38" Click="BtnSelfPdf_Click"/>
+            <Button x:Name="BtnSelPdf" Grid.Column="1" Content="PDF 선택" Height="38" 
+                    Margin="0,0,10,0" Click="BtnSelPdf_Click" />
+            <Button x:Name="BtnUpload" Grid.Column="2" Content="문서 등록" Height="38" 
+                    Click="BtnUpload_Click" />
         </Grid>
-        
-        <!--질문영역-->
+
+        <!-- 질문영역 -->
         <Grid Grid.Row="2" Margin="0,0,0,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -41,7 +46,7 @@
 
             <TextBox x:Name="TxtQuestion" Grid.Column="0" Height="45" VerticalContentAlignment="Center"
                      Margin="0,0,10,0" />
-            <Button x:Name="BtnQuestion" Grid.Column="1" Content="질문하기" Height="38" />
+            <Button x:Name="BtnQuestion" Grid.Column="1" Content="질문하기" Height="45" Click="BtnQuestion_Click" />
         </Grid>
 
         <!-- AI 답변영역 -->
