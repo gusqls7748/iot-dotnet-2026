@@ -50,6 +50,24 @@
         </Grid>
 
         <!-- AI 답변영역 -->
+        <Grid Grid.Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <GroupBox Grid.Row="0" Header="AI 답변" FontSize="16">
+                <TextBox x:Name="TxtAnswer"    
+                 Margin="10" FontSize="14" TextWrapping="Wrap"
+                 AcceptsReturn="True"
+                 VerticalScrollBarVisibility="Auto"
+                 IsReadOnly="True" />
+            </GroupBox>
+
+            <GroupBox Grid.Row="1" Header="참고 문서" FontSize="14">
+                <TextBlock x:Name="TxtSources" Margin="10" TextWrapping="Wrap" />
+            </GroupBox>
+        </Grid>
         <GroupBox Grid.Row="3" Header="AI 답변" FontSize="16">
             <TextBox x:Name="TxtAnswer"    
                      Margin="10" FontSize="14" TextWrapping="Wrap"

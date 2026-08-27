@@ -1,12 +1,10 @@
-# 토이프로젝트
-
 # 토이프로젝트 7
 
 ## AI 문서검색·질의응답 시스템
 
 ### 개요
 
-![](assets/20260820_113814_20260819_092451_e325c4f7-47be-4728-9d53-2674141a8885.png)
+![](assets/20260819_092451_e325c4f7-47be-4728-9d53-2674141a8885.png)
 
 기업 문서를 기반으로 한 AI 지식검색 시스템 개발
 
@@ -49,9 +47,7 @@ WPF 애플리케이션 프로젝트 생성. .NET 10.0 (LTS) 선택
 
 ##### MainWindow.xaml 디자인
 
-![](assets/20260820_113901_20260819_101614_image.png)
-
-
+![](assets/20260819_101614_image.png)
 
 ##### 파일선택 구현
 
@@ -294,126 +290,209 @@ def create_embedding(chunks):
 ```
 
 - 업로드 후 PDF 변환, Chunk 작업 후 Embedding
-- 최초 트랜스포머 모델 다운로드 : C:\Users\User\.cache\huggingface\hub\
+- 트랜스포머 모델 다운로드 : `C:\Users\User\.cache\huggingface\hub\`
+- 최초 트랜스포머 모델 다운로드 시 시간 소요
 
 ![](assets/20260820_112415_image.png)
 
 - Embedding 변환결과
 
-![](assets/20260820_112833_image.png
+![](assets/20260820_112833_image.png)
 
-## AI 문서검색 . 질의응닫 시스템
+##### ChromaDB에 Embedding 저장
 
-### 
-
-![](assets/20260819_092432_image.png)
-
-기업 문서를 기반으로 한 AI 지식검색 시스템 개발
-
-- 사내 PDF 문서 등록해 두고, 사용자가 자연어로 질문을 하면 관련 문서를 찾아서 근거와 함께 답변을 해주는 WPF 원앱 프로그램을 구현
-
-사용 기술
-
-
-| 구분     | 기술               |
-| -------- | :----------------- |
-| 화면     | C# WPF             |
-| 서버     | Python FastAPI     |
-| PDF 처리 | Python             |
-| 벡터 DB  | ?                  |
-| AI 모델  | Ollama 또는 OpenAI |
-| 통신     | REST API /JSON     |
-| DB 저장  | ??                 |
-
-#### RAG
-
-Retrieval Augmented Generation : 검색(Retrieval) + AI 답변생성(Genera
-
-내가 제공한 문서를 먼저 검색한 뒤 그 내용을 참고해서 답변하는 방식. 구글 노트북이 그 대표적인 사이트 [Gemini Notebook](https://notebook.google.com/?pli=1)
-
-### 프로젝트 구성
-
-```plaintext
-ToyProject07(AIKnowlegeSystem)
-|
-|-Client(WPFClient) - 사용자 화면
-|
-|_Server(Aiserver) - FastAPI + Python Funtion
-
-```
-
-#### 최초구현
-
-##### Visual Studio WPF 프로젝트 생성
-
-WPF 애플리케이션 프로젝트 생성. .NET 10.0 (LTS) 선택
-
-##### MainWidow.xaml 디자인
-
-![](assets/20260819_101628_image.png)
-
-##### 파일 선택 구현
-
-![](assets/20260819_102502_image.png)
-
-#### 서버구현
-
-##### 필요 패키지 설치
-
-. 가상환경에
+- ChromaDB : 벡터 데이터베이스. RAG에서 관련자료 찾아주는 검색엔진 역할의 DB
+- Sqlite 베이스
 
 ```powershell
-> pip install fastapi uvicorn
+> pip install chromadb
 ```
 
-##### 가상환경 설정
+- ChromaDB 저장함수
 
-FASTAPI 서버구현
+```python
+## 내부 함수 7 - Chunk 저장함수
+def save_chunk_to_chroma(chunks, embeddings, filename):
+    ids = []
+    documents = []
+    metadatas = []
+    embedding_list = []
 
-```powershell
-from fastapi import FastAPI
+    for i, chunk in enumerate(chunks):
+        ids.append(
+            f'{filename}_{chunk["page"]}_{chunk["chunk_index"]}'
+        )
 
-app = FastAPI()
+        documents.append(chunk['text'])
 
-@app.get('/')
-def index():
+        metadatas.append({
+            'filename': filename,
+            'page': chunk['page'],
+            'chunk_index': chunk['chunk_index']
+        })
+
+        embedding_list.append(embeddings[i].toList())
+
+    collection.add(
+        ids=ids,
+        documents=documents,
+        metadatas=metadatas,
+        embeddings=embedding_list
+    )
+```
+
+- 서버 실행 후 DB생성
+
+![](assets/20260824_101200_image.png)
+
+- PDF 업로드 후 DB 현황. 벡터검색용 테이블들이 구성되어 있음
+
+![](assets/20260824_101333_image.png)
+
+- ChromaDB는 기본 Sqlite. 실무에서 사용할 DB로는 `PostgreSQL`로 변경
+
+##### 벡터 검색으로 관련 Chunk찾기
+
+- 검색함수
+
+```python
+### 내부 함수 8 - Chunk 검색함수
+### top_k : 관련있는 값을 몇개까지 가져올것인지
+def search_documents(question: str, top_k=3):
+    # 질문을 Embegging으로 변환
+    question_embedding = embedding_model.encode(
+        question,
+        convert_to_numpy=True  
+    )
+
+    # ChromaDB 검색
+    results = collection.query(
+        query_embeddings=[
+            question_embedding.tolist()
+        ],
+        n_results=top_k
+    )
+
+    return results
+```
+
+- `/ask` post 함수 수정
+
+```python
+@app.post('/ask')
+def ask(request: QuestionRequest):
+    # DB에서 관련어 검색하고
+    results = search_documents(  
+        request.question
+    )
+
+    # 결과 리턴
     return {
-        'message': 'AI Knowledge Server'
+        'question': request.question,
+        'documents': results['documents'][0],
+        'metadatas': results['metadatas'][0],
+        'distances': results['distances'][0]
     }
+```
 
-@app.get('health')
-def health():
+- 결과 화면
+
+![](assets/20260824_103714_image.png)
+
+- 텍스트 대신 이미지를 PDF로 변환한 파일인 경우 - 변환불가. OCR 등을 사용해서 텍스트 추출
+
+![](assets/20260824_104303_image.png)
+
+##### Ollama LLM 연결
+
+- https://ollama.com/ 설치
+- Ollama 동작
+
+```powershell
+> ollama list
+> ollama run qwen3.5:2b
+```
+
+- Ollama 패키지 설치
+
+```powershell
+> pip install ollama
+```
+
+- Ollama 답변함수
+
+```python
+### 내부 함수 9 - Ollama 프롬프트생성 함수
+def generate_answer(question: str, documents: list):
+    context = "\n\n".join(documents)
+
+    prompt = f"""
+다음 문서 내용을 참조해서 질문에 답변하세요.
+문서에 없는 내용은 추측하지 말고 모른다고 답변하세요.
+[문서]
+{context}
+[질문]
+{question}
+[답변]
+    """
+    response = ollama.chat(
+        model='qwen3.5:2b',
+        messages=[{
+            'role': 'user',
+            'content': prompt
+        }]
+    )
+
+    return response['message']['content']
+```
+
+- /ask post 함수 수정
+
+```python
+@app.post('/ask')
+def ask(request: QuestionRequest):
+    # DB에서 관련어 검색하고
+    results = search_documents(  
+        request.question,
+        top_k=3
+    )
+
+    documents = results['documents'][0]
+    metadatas = results['metadatas'][0]
+    distances = results['distances'][0]
+
+    # 검색된 결과를 Ollama(LLM)에 전달
+    answer = generate_answer(request.question, documents)
+
+    # 결과 반환
     return {
-        'status': 'OK'
+        'question': request.question,
+        'answer': answer,
+        'sources': metadatas,
+        'distances': distances
     }
 ```
 
-- 실행
+- Ollama 사용 결과 확인
 
-```powershell
-> univershell main:app --reload
-```
+![](assets/20260824_121127_image.png)
 
-##### 파일 업로드 Post 기능 추가
+- Ollama, Local LLM에 질문을 보내고 응답받는 시간이 오래 걸림. 최소 20초
+- OpenAI나 Gemini 등의 상용 LLM을 사용하면 사라질 현상
+- ChatGPT(OpenAI)로 변경했을 때 결과 화면 - 같은 벡터 검색결과로 LLM 실행결과가 다르게 나옴. 결과 도출시간 5초 정도
 
-```powershell
-> pip install python-multipart
-```
+![](assets/20260824_121151_image.png)
 
-# 
+#### 추가 작업
 
-![](assets/20260820_101919_image.png)
+- 질문 작업 엔터로 처리
+- 질문 진행동안 버튼 비활성화
+- 프로그레스바(서클) LLM 처리시간동안 진행상태 표시
+- WPF JSON 파싱
+- 예외처리(서버꺼짐, WPF앱 꺼짐)
 
-# 
+### DevExpress 적용
 
-![](assets/20260820_101939_image.png)
-
-##### PDF내용 Chunck 단위 분리
-
-- RAG는 PDF 전체를 한번에 검색하지 않음. 작은 텍스트 조각으로 나눠서 검색
-
-### 
-
-![](assets/20260820_112931_image.png)
-
-##### Embe
+- 첫번째 : 확장 > DevExpress > Project Conver로 일괄 변경
+- 두번쨰 : 일반적인 NuGet 패키지 관리자로 설치
+    DevExpress.Wpf.Core 설치, 12개 종속성

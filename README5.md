@@ -41,6 +41,10 @@
 
 - Python AI + SignalR API
 
+### Final Project
+
+- [Final project](./final_project.md)
+
 ### 취업처 설명
 
 - 사람인, 잡코리아 확인
